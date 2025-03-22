@@ -5,7 +5,7 @@ The project explores how `State Space Models` (SSMs) handle large-context inputs
 
 ## References
 
-This project builds upon the findings from the paper `Lost in the Middle: How Language Models Use Long Contexts` by Nelson Liu et al. We extend this work by applying similar methodologies to State Space Models (SSMs), investigating how they handle large-context inputs compared to Large Language Models (LLMs).
+This project builds upon the findings from the paper `Lost in the Middle: How Language Models Use Long Contexts`. We extend this work by applying similar methodologies to State Space Models (SSMs), investigating how they handle large-context inputs compared to Large Language Models (LLMs).
 
 Portions of this code are based on the original implementation from Lost in the Middle, licensed under the MIT License. Additional contributions have been made by Gal Sarid (2025).
 

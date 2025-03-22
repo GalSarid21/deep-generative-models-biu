@@ -172,3 +172,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# ignore lost-in-the-middle git & data folders
+/lost-in-the-middle
+/qa_data

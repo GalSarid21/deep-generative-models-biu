@@ -1,4 +1,4 @@
-from common.env.arg_setting import set_hf_token
+from common.env_utils.arg_setting import set_hf_token
 from experiments.abstract import AbstractExperiment
 from common.entities import ExperimentType
 from experiments import ALL_EXPERIMENTS

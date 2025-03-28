@@ -1,32 +1,41 @@
 from common.entities import Document, PromptingMode
+import common.consts as consts
 
-from typing import List, Optional
+from typing import List
 
 
 class PromptBuilder:
 
-    _OPENBOOK_PROMPT_TEMPLATE_PARTS = [
-        "Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant).",
-        "Search Results:\n{search_results}",
-        "Question: {question}",
-        "Answer:"
-    ]
-
-    _OPENBOOK_RANDOM_PROMPT_TEMPLATE_PARTS = [
-        "Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant). The search results are ordered randomly.",
-        "Search Results:\n{search_results}",
-        "Question: {question}",
-        "Answer:"
-    ]
-
-    _CLOSED_BOOK_PROMPT_TEMPLATE_PARTS = [
-        "Write a high-quality answer for the given question."
-        "Question: {question}",
-        "Answer:"
-    ]
+    _TEMPLATE_MAPPING = {
+        PromptingMode.OPENBOOK: [
+            "Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant).",
+            "Search Results:\n{search_results}",
+            "Question: {question}",
+            "Answer:"
+        ],
+        PromptingMode.OPENBOOK_RANDOM: [
+            "Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant). The search results are ordered randomly.",
+            "Search Results:\n{search_results}",
+            "Question: {question}",
+            "Answer:"
+        ],
+        PromptingMode.CLOSEDBOOK: [
+            "Write a high-quality answer for the given question.",
+            "Question: {question}",
+            "Answer:"
+        ]
+    }
 
     def __init__(self, prompting_mode: str) -> None:
-        self._pompting_mode = PromptingMode(prompting_mode)
+        try:
+            self._prompting_mode = PromptingMode(prompting_mode)
+        except Exception:
+            # raise readable custom error
+            raise ValueError(
+                consts.INVALID_ENUM_CREATION_MSG.format(
+                    obj=PromptingMode, arg=prompting_mode
+                )
+            )
         self._prompt_template = self._get_prompt_template()
 
     def build(
@@ -35,25 +44,19 @@ class PromptBuilder:
         documents: List[Document]
     ) -> str:
 
-        formatted_documents = [
-            f"Document [{document_index}](Title: {document.title}) {document.text}"
-            for document_index, document in enumerate(documents, 1)
-        ]
-
-        search_results = "\n".join(formatted_documents)
+        search_results = self._format_documents(documents)
         return self._prompt_template.format(
             search_results=search_results,
             question=question
         )
 
     def _get_prompt_template(self) -> str:
-
-        prompt_template_parts_mappings = {
-            PromptingMode.CLOSEDBOOK: self._CLOSED_BOOK_PROMPT_TEMPLATE_PARTS,
-            PromptingMode.OPENBOOK: self._OPENBOOK_PROMPT_TEMPLATE_PARTS,
-            PromptingMode.OPENBOOK_RANDOM: self._OPENBOOK_RANDOM_PROMPT_TEMPLATE_PARTS
-        }
-
-        prompt_template_parts = prompt_template_parts_mappings[self._pompting_mode]
+        prompt_template_parts = self._TEMPLATE_MAPPING[self._prompting_mode]
         prompt_template = "\n\n".join(prompt_template_parts)
         return prompt_template
+
+    def _format_documents(self, documents: List[Document]) -> str:
+        return "\n".join(
+            f"Document [{document_index}](Title: {document.title}) {document.text}"
+            for document_index, document in enumerate(documents, 1)
+        )

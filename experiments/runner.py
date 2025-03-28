@@ -3,6 +3,8 @@ from experiments.abstract import AbstractExperiment
 from common.entities import ExperimentType
 from experiments import ALL_EXPERIMENTS
 
+import common.consts as consts
+
 from argparse import Namespace
 from typing import Type
 
@@ -19,8 +21,15 @@ class ExperimentRunner:
         experiment.run()
 
     def _get_experiment_class(self) -> Type[AbstractExperiment]:
-
-        experiment_type = ExperimentType(self._args.experiment)
+        try:
+            experiment_type = ExperimentType(self._args.experiment)
+        except Exception:
+            # raise readable custom error
+            raise ValueError(
+                consts.INVALID_ENUM_CREATION_MSG.format(
+                    obj=ExperimentType, arg=self._args.experiment
+                )
+            )
 
         for experiment_cls in ALL_EXPERIMENTS:
             if experiment_cls.get_type() == experiment_type:

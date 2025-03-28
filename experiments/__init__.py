@@ -1,1 +1,5 @@
-from .runner import ExperimentRunner
+from .test import TestExperiment
+
+ALL_EXPERIMENTS = [
+    TestExperiment
+]

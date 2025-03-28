@@ -1,6 +1,6 @@
-from common.cli.env_args import CliEnvArgs
-from common.configs import LogConfig
-from experiments import ExperimentRunner
+from common.configs.log_config import configure_log
+from experiments.runner import ExperimentRunner
+from common.env.cli import get_cli_env_args
 
 import traceback
 import logging
@@ -10,8 +10,8 @@ import sys
 if __name__ == "__main__":
 
     try:
-        LogConfig.configure()
-        args = CliEnvArgs.get_args()
+        configure_log()
+        args = get_cli_env_args()
         runner = ExperimentRunner(args)
         runner.run()
 

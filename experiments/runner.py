@@ -1,25 +1,29 @@
+from common.env.arg_setting import set_hf_token
 from experiments.abstract import AbstractExperiment
-from experiments.test import TestExperiment
 from common.entities import ExperimentType
+from experiments import ALL_EXPERIMENTS
 
 from argparse import Namespace
+from typing import Type
 
 
 class ExperimentRunner:
 
     def __init__(self, args: Namespace) -> None:
         self._args = args
-        # mapping dict to choose experiment dynamically at run time
-        self._experiment_mapping = {
-            ExperimentType.TEST: TestExperiment
-        }
+        set_hf_token(self._args.hf_token)
 
     def run(self) -> None:
-        experiment = self._get_running_experiment()
+        experiment_cls = self._get_experiment_class()
+        experiment = experiment_cls(args=self._args)
         experiment.run()
 
-    def _get_running_experiment(self) -> AbstractExperiment:
-        # invalid experiment would raise an error
+    def _get_experiment_class(self) -> Type[AbstractExperiment]:
+
         experiment_type = ExperimentType(self._args.experiment)
-        experiment_class = self._experiment_mapping[experiment_type]
-        return experiment_class()
+
+        for experiment_cls in ALL_EXPERIMENTS:
+            if experiment_cls.get_type() == experiment_type:
+                return experiment_cls
+
+        raise ValueError(f"Unknown experiment type: {experiment_type}")

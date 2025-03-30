@@ -9,30 +9,25 @@ from argparse import Namespace
 from typing import Type
 
 
-class ExperimentRunner:
+def run(args: Namespace) -> None:
+    experiment_cls = _get_experiment_class(args)
+    experiment = experiment_cls(args)
+    experiment.run()
 
-    def __init__(self, args: Namespace) -> None:
-        self._args = args
-        set_hf_token(self._args.hf_token)
 
-    def run(self) -> None:
-        experiment_cls = self._get_experiment_class()
-        experiment = experiment_cls(args=self._args)
-        experiment.run()
-
-    def _get_experiment_class(self) -> Type[AbstractExperiment]:
-        try:
-            experiment_type = ExperimentType(self._args.experiment)
-        except Exception:
-            # raise readable custom error
-            raise ValueError(
-                consts.INVALID_ENUM_CREATION_MSG.format(
-                    obj=ExperimentType, arg=self._args.experiment
-                )
+def _get_experiment_class(args: Namespace) -> Type[AbstractExperiment]:
+    try:
+        experiment_type = ExperimentType(args.experiment)
+    except Exception:
+        # raise readable custom error
+        raise ValueError(
+            consts.INVALID_ENUM_CREATION_MSG.format(
+                obj=ExperimentType, arg=args.experiment
             )
+        )
 
-        for experiment_cls in ALL_EXPERIMENTS:
-            if experiment_cls.get_type() == experiment_type:
-                return experiment_cls
+    for experiment_cls in ALL_EXPERIMENTS:
+        if experiment_cls.get_type() == experiment_type:
+            return experiment_cls
 
-        raise ValueError(f"Unknown experiment type: {experiment_type}")
+    raise ValueError(f"Unknown experiment type: {experiment_type}")

@@ -1,6 +1,6 @@
 from common.configs.log_config import configure_log
 from common.env_utils.cli import read_cli_env_args
-from experiments.runner import ExperimentRunner
+import experiments.runner as experiment_runner
 
 import traceback
 import logging
@@ -12,8 +12,7 @@ if __name__ == "__main__":
     try:
         configure_log()
         args = read_cli_env_args()
-        runner = ExperimentRunner(args)
-        runner.run()
+        experiment_runner.run(args)
 
     except KeyboardInterrupt:
         sys.exit(130)

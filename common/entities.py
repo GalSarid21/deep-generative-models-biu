@@ -3,8 +3,8 @@ from typing import TypeVar, Optional, Type
 from copy import deepcopy
 from enum import Enum
 
+
 T = TypeVar("T")
-from enum import Enum
 
 
 class ExperimentType(Enum):

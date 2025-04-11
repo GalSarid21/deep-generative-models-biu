@@ -1,3 +1,4 @@
+RESULTS_DIR = "./results"
 DATA_SRC_DIR = "./lost-in-the-middle/qa_data"
 DATA_DST_DIR = "./qa_data"
 

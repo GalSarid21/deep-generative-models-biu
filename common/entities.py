@@ -10,7 +10,7 @@ T = TypeVar("T")
 class ExperimentType(Enum):
     TEST = "test"
     GOLD_IDX_CHANGE = "gold-idx-change"
-    DOC_NUM_CHANGE = "doc-num-change"
+    NUM_DOCS_CHANGE = "num-docs-change"
 
 
 class PromptingMode(Enum):

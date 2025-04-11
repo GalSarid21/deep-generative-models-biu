@@ -2,15 +2,19 @@ from common.env_utils.arg_setting import set_hf_token
 from experiments.abstract import AbstractExperiment
 from common.entities import ExperimentType
 from experiments import ALL_EXPERIMENTS
-
 import common.consts as consts
 
 from argparse import Namespace
-from typing import Type
+from typing import Type, Optional
 
 
-def run(args: Namespace) -> None:
-    experiment_cls = _get_experiment_class(args)
+def run(
+    args: Namespace,
+    running_cls: Optional[Type[AbstractExperiment]] = None
+) -> None:
+
+    set_hf_token(args.hf_token)
+    experiment_cls = running_cls or _get_experiment_class(args)
     experiment = experiment_cls(args)
     experiment.run()
 

@@ -2,6 +2,7 @@ from common.entities import ExperimentType
 import common.consts as consts
 
 from argparse import Namespace
+from typing import List
 from abc import ABC, abstractmethod
 import logging
 import shutil
@@ -17,6 +18,10 @@ class AbstractExperiment(ABC):
         pass
 
     def __init__(self, args: Namespace) -> None:
+        self._create_process_dirs(
+            dirs=[consts.RESULTS_DIR, consts.DATA_DST_DIR]
+        )
+
         self._download_experiment_data_files(
             src_dir=consts.DATA_SRC_DIR,
             dst_dir=consts.DATA_DST_DIR,
@@ -27,6 +32,10 @@ class AbstractExperiment(ABC):
     def get_type(cls) -> ExperimentType:
         return cls._TYPE
 
+    def _create_process_dirs(self, dirs: List[str]) -> None:
+        for dir in dirs:
+            os.makedirs(dir, exist_ok=True)
+
     def _download_experiment_data_files(
         self,
         num_docs: int,
@@ -35,7 +44,6 @@ class AbstractExperiment(ABC):
     ) -> None:
 
         logging.info(f"Downloading NQ Data...")
-        os.makedirs(dst_dir, exist_ok=True)
         data_folders = [
             f for f in os.listdir(src_dir)
             if os.path.isdir(os.path.join(src_dir, f))

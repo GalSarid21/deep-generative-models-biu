@@ -1,5 +1,4 @@
 from common.entities import Document, PromptingMode
-import common.consts as consts
 
 from typing import List
 
@@ -26,16 +25,8 @@ class PromptBuilder:
         ]
     }
 
-    def __init__(self, prompting_mode: str) -> None:
-        try:
-            self._prompting_mode = PromptingMode(prompting_mode)
-        except Exception:
-            # raise readable custom error
-            raise ValueError(
-                consts.INVALID_ENUM_CREATION_MSG.format(
-                    obj=PromptingMode, arg=prompting_mode
-                )
-            )
+    def __init__(self, prompting_mode: PromptingMode) -> None:
+        self._prompting_mode = prompting_mode
         self._prompt_template = self._get_prompt_template()
 
     def build(

@@ -18,5 +18,6 @@ def configure_log(
         format=log_format_str,
         datefmt=datefmt,
         level=level,
-        stream=sys.stdout
+        stream=sys.stdout,
+        force=True
     )

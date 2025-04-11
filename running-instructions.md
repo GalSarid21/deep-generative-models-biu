@@ -39,9 +39,22 @@ poetry install
 git clone https://github.com/nelson-liu/lost-in-the-middle.git
 ```
 
-7. Run `ExperimentRunner` on `test` to make sure everything was set up correctly:
+7. Set HuggingFace token using one of the following options:
+
+* Set `HF_TOKEN` environment variable. Run in terminal:
 ```bash
-poetry run python main.py --experiment test
+export HF_TOKEN=<your-huggingface-token>
+echo $HF_TOKEN
+```
+
+* Pass `hf-token` run-time arg:
+```bash
+poetry run python main.py --experiment <experiment-type> --hf-token <hf-token>
+```
+
+8. Run unit test to make sure everything is working:
+```bash
+poetry run pytest -o log_cli=true -o log_cli_level=INFO -s --ignore=lost-in-the-middle
 ```
 
 ## ⚙️ Set poerty as virtual environment (venv):

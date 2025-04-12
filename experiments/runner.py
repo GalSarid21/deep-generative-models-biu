@@ -1,25 +1,37 @@
+from common.env_utils.arg_setting import set_hf_token
 from experiments.abstract import AbstractExperiment
-from experiments.test import TestExperiment
 from common.entities import ExperimentType
+from experiments import ALL_EXPERIMENTS
+import common.consts as consts
 
 from argparse import Namespace
+from typing import Type, Optional
 
 
-class ExperimentRunner:
+def run(
+    args: Namespace,
+    running_cls: Optional[Type[AbstractExperiment]] = None
+) -> None:
 
-    def __init__(self, args: Namespace) -> None:
-        self._args = args
-        # mapping dict to choose experiment dynamically at run time
-        self._experiment_mapping = {
-            ExperimentType.TEST: TestExperiment
-        }
+    set_hf_token(args.hf_token)
+    experiment_cls = running_cls or _get_experiment_class(args)
+    experiment = experiment_cls(args)
+    experiment.run()
 
-    def run(self) -> None:
-        experiment = self._get_running_experiment()
-        experiment.run()
 
-    def _get_running_experiment(self) -> AbstractExperiment:
-        # invalid experiment would raise an error
-        experiment_type = ExperimentType(self._args.experiment)
-        experiment_class = self._experiment_mapping[experiment_type]
-        return experiment_class()
+def _get_experiment_class(args: Namespace) -> Type[AbstractExperiment]:
+    try:
+        experiment_type = ExperimentType(args.experiment)
+    except Exception:
+        # raise readable custom error
+        raise ValueError(
+            consts.INVALID_ENUM_CREATION_MSG.format(
+                obj=ExperimentType, arg=args.experiment
+            )
+        )
+
+    for experiment_cls in ALL_EXPERIMENTS:
+        if experiment_cls.get_type() == experiment_type:
+            return experiment_cls
+
+    raise ValueError(f"Unknown experiment type: {experiment_type}")

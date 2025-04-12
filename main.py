@@ -1,6 +1,6 @@
-from common.cli.env_args import CliEnvArgs
-from common.configs import LogConfig
-from experiments import ExperimentRunner
+from common.configs.log_config import configure_log
+from common.env_utils.cli import read_cli_env_args
+import experiments.runner as experiment_runner
 
 import traceback
 import logging
@@ -10,10 +10,9 @@ import sys
 if __name__ == "__main__":
 
     try:
-        LogConfig.configure()
-        args = CliEnvArgs.get_args()
-        runner = ExperimentRunner(args)
-        runner.run()
+        configure_log()
+        args = read_cli_env_args()
+        experiment_runner.run(args)
 
     except KeyboardInterrupt:
         sys.exit(130)

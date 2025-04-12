@@ -1,9 +1,9 @@
 closedbook_num_docs: 0
-closedbook_num_prompts: 2655
-closedbook_prompt: "who got the first nobel prize in physics" # prompt idx=0
+closedbook_num_questions: 2655
+closedbook_question: "who got the first nobel prize in physics" # question idx=0
 openbook_num_docs: 2655
-openbook_num_prompts: 2655
-openbook_prompt: "when is the next deadpool movie being released" # prompt idx=1
+openbook_num_questions: 2655
+openbook_question: "when is the next deadpool movie being released" # question idx=1
 openbook_docs:
   # gold
   - title: "Deadpool 2"
@@ -22,8 +22,8 @@ openbook_docs:
     isgold: False
     original_retrieval_index: 0
 openbook_random_num_docs: 2655
-openbook_random_num_prompts: 2655
-openbook_random_prompt: "the south west wind blows across nigeria between" # prompt idx=2
+openbook_random_num_questions: 2655
+openbook_random_question: "the south west wind blows across nigeria between" # question idx=2
 openbook_random_docs:
   # gold
   - title: "Geography of Nigeria"
@@ -45,7 +45,7 @@ data_dict_keys:
   - gold_at_9
 data_dict_subset:
   gold_at_4:
-    prompts:
+    questions:
       - "who got the first nobel prize in physics"
     documents:
       -
@@ -64,7 +64,7 @@ data_dict_subset:
           isgold: false
           original_retrieval_index: 1
   gold_at_0:
-    prompts:
+    questions:
       - "who got the first nobel prize in physics"
     documents:
       - 
@@ -83,7 +83,7 @@ data_dict_subset:
           isgold: false
           original_retrieval_index: 0
   gold_at_9:
-    prompts:
+    questions:
       - "who got the first nobel prize in physics"
     documents:
       - 

@@ -1,4 +1,5 @@
 from common.entities import PromptingMode
+from tests.conftest import download_nq_files_if_needed
 import common.nq_data as nq_data
 import common.consts as common_consts
 import tests.consts as test_consts
@@ -43,7 +44,7 @@ def test_skipping_files_downloading(
     caplog: Callable
 ) -> None:
 
-    _download_nq_files_if_needed()
+    download_nq_files_if_needed()
     with caplog.at_level(logging.INFO):
         nq_data.download_files(
             src_dir=common_consts.DATA_SRC_DIR,
@@ -66,15 +67,15 @@ def test_closedbook_documents_list_creation(
     test_results: Dict[str, Any]
 ) -> None:
 
-    _download_nq_files_if_needed()
-    prompts, documents = nq_data.read_file(
+    download_nq_files_if_needed()
+    questions, documents = nq_data.read_file(
         file_path=test_consts.TEST_DOCUMENT_PATH,
         prompting_mode=PromptingMode.CLOSEDBOOK
     )
 
     assert len(documents) == test_results["closedbook_num_docs"]
-    assert len(prompts) == test_results["closedbook_num_prompts"]
-    assert prompts[0] == test_results["closedbook_prompt"]
+    assert len(questions) == test_results["closedbook_num_questions"]
+    assert questions[0] == test_results["closedbook_question"]
 
 
 @pytest.mark.parametrize(
@@ -86,16 +87,16 @@ def test_openbook_documents_list_creation(
     test_results: Dict[str, Any]
 ) -> None:
 
-    _download_nq_files_if_needed()
-    prompts, documents = nq_data.read_file(
+    download_nq_files_if_needed()
+    questions, documents = nq_data.read_file(
         file_path=test_consts.TEST_DOCUMENT_PATH,
         prompting_mode=PromptingMode.OPENBOOK
     )
 
     test_idx = 1
     assert len(documents) == test_results["openbook_num_docs"]
-    assert len(prompts) == test_results["openbook_num_prompts"]
-    assert prompts[test_idx] == test_results["openbook_prompt"]
+    assert len(questions) == test_results["openbook_num_questions"]
+    assert questions[test_idx] == test_results["openbook_question"]
 
     test_docs = documents[test_idx][:test_consts.NUM_DOCS_TO_TEST]
     for i, doc in enumerate(test_docs):
@@ -118,16 +119,16 @@ def test_openbook_random_documents_list_creation(
     test_results: Dict[str, Any]
 ) -> None:
     
-    _download_nq_files_if_needed()
-    prompts, documents = nq_data.read_file(
+    download_nq_files_if_needed()
+    questions, documents = nq_data.read_file(
         file_path=test_consts.TEST_DOCUMENT_PATH,
         prompting_mode=PromptingMode.OPENBOOK_RANDOM
     )
 
     test_idx = 2
     assert len(documents) == test_results["openbook_random_num_docs"]
-    assert len(prompts) == test_results["openbook_random_num_prompts"]
-    assert prompts[test_idx] == test_results["openbook_random_prompt"]
+    assert len(questions) == test_results["openbook_random_num_questions"]
+    assert questions[test_idx] == test_results["openbook_random_question"]
 
     test_doc = documents[test_idx][0]
     assert test_doc.title == test_results["openbook_random_docs"][0]["title"]
@@ -146,7 +147,7 @@ def test_openbook_random_documents_list_creation(
     indirect=True
 )
 def test_nq_dict_creation(test_results: Dict[str, Any]) -> None:
-    _download_nq_files_if_needed()
+    download_nq_files_if_needed()
     data = nq_data.read_files(
         folder_path=test_consts.DOCUMENTS_FOLDER_PATH,
         prompting_mode=PromptingMode.OPENBOOK
@@ -159,7 +160,7 @@ def test_nq_dict_creation(test_results: Dict[str, Any]) -> None:
 
     data_test_subset = {
         key: {
-            "prompts": [data[key]["prompts"][0]],
+            "questions": [data[key]["questions"][0]],
             "documents": [data[key]["documents"][0][:2]]
         }
         for key in data.keys()
@@ -174,7 +175,7 @@ def test_nq_dict_creation(test_results: Dict[str, Any]) -> None:
     assert data_test_subset_json_dict == test_results["data_dict_subset"]
 
 
-def _download_nq_files_if_needed() -> None:
+def download_nq_files_if_needed() -> None:
     if not os.path.exists(test_consts.DOCUMENTS_FOLDER_PATH):
         nq_data.download_files(
             src_dir=common_consts.DATA_SRC_DIR,

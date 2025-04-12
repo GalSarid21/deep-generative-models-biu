@@ -61,7 +61,7 @@ def read_files(
     jsonl_files = list(folder_path.glob("*.jsonl"))
     files_data = {}
     for jsonl in jsonl_files:
-        prompts, documents = read_file(
+        questions, documents = read_file(
             file_path=jsonl, prompting_mode=prompting_mode
         )
         # stem should look like the following:
@@ -70,7 +70,7 @@ def read_files(
         # create a short name such as "gold_at_0"
         file_short_name = jsonl.stem.split("_documents_")[-1]
         files_data.update({
-            file_short_name: {"prompts": prompts, "documents": documents}
+            file_short_name: {"questions": questions, "documents": documents}
         })
 
     return files_data

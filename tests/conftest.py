@@ -1,3 +1,7 @@
+import common.nq_data as nq_data
+import common.consts as common_consts
+import tests.consts as test_consts
+
 from typing import Dict, Any
 import pytest
 import yaml
@@ -27,3 +31,11 @@ def test_results(request: pytest.FixtureRequest) -> Dict[str, Any]:
         data = yaml.safe_load(f)
     return data
 
+
+def download_nq_files_if_needed() -> None:
+    if not os.path.exists(test_consts.DOCUMENTS_FOLDER_PATH):
+        nq_data.download_files(
+            src_dir=common_consts.DATA_SRC_DIR,
+            dst_dir=common_consts.DATA_DST_DIR,
+            num_docs=common_consts.SUPPORTED_NUM_DOCS[0]
+        )

@@ -1,0 +1,103 @@
+closedbook_num_docs: 0
+closedbook_num_prompts: 2655
+closedbook_prompt: "who got the first nobel prize in physics" # prompt idx=0
+openbook_num_docs: 2655
+openbook_num_prompts: 2655
+openbook_prompt: "when is the next deadpool movie being released" # prompt idx=1
+openbook_docs:
+  # gold
+  - title: "Deadpool 2"
+    text: "Deadpool 2 is scheduled to be released in the United States on May 18, 2018.  A sequel, Deadpool 3, is in development."
+    id: null
+    score: null
+    hasanswer: True
+    isgold: True
+    original_retrieval_index: null
+  # non-gold
+  - title: "Deadpool (video game)"
+    text: "2015 in North America and Australia, and November 20, 2015 in the United Kingdom. It is unknown how Activision reacquired the rights to publish \"Deadpool: The Video Game\", but it is believed that the re-release was timed to help promote the then-upcoming Deadpool feature film, released roughly three months after the next-gen version of the game. High Moon Studios showed an early demo of the video game to journalists at Gamescom 2012, where the game earned a nomination for Best of Show. Several sites wrote positive impression of the demo that was shown at Gamescom and the Electronic Entertainment Expo"
+    id: "16652154"
+    score: 1.680884
+    hasanswer: False
+    isgold: False
+    original_retrieval_index: 0
+openbook_random_num_docs: 2655
+openbook_random_num_prompts: 2655
+openbook_random_prompt: "the south west wind blows across nigeria between" # prompt idx=2
+openbook_random_docs:
+  # gold
+  - title: "Geography of Nigeria"
+    text: "With the Intertropical Convergence Zone (ITCZ) swinging northward over West Africa from the Southern Hemisphere in April, heavy showers coming from pre-monsoonal convective clouds mainly in the form of squall lines also known as the north easterlies formed mainly as a result of the interactions of the two dominant airmasses in Nigeria known as the Maritime tropical(south westerlies) and the Continental tropical(north easterlies), begins in central Nigeria while the Monsoons from the south atlantic ocean arrives in central Nigeria in July bringing with it high humidity, heavy cloud cover and heavy rainfall which can be daily occurrence lasting till September when the monsoons gradually begin retreating southward to the southern part of Nigeria."
+    id: null
+    score: null
+    hasanswer: True
+    isgold: True
+    original_retrieval_index: null
+  # we don't test the non-gold since its shuffled.
+expected_log_msg: |
+  INFO     root:nq_data.py:26 Downloading NQ Data...
+  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
+data_dict_keys:
+  - gold_at_0
+  - gold_at_4
+  - gold_at_9
+data_dict_subset:
+  gold_at_4:
+    prompts:
+      - "who got the first nobel prize in physics"
+    documents:
+      -
+        - title: "Nobel Prize in Physics"
+          text: "receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was"
+          id: "628725"
+          score: 1.6234328
+          hasanswer: false
+          isgold: false
+          original_retrieval_index: 0
+        - title: "Norwegian Americans"
+          text: "science, Ernest Lawrence won the Nobel Prize in Physics in 1939. Lars Onsager won the 1968 Nobel Prize in Chemistry. Norman Borlaug, father of the Green Revolution, won the Nobel Peace Prize in 1970. Christian B. Anfinsen won the Nobel Prize for chemistry in 1972. Ivar Giaever won the Nobel Prize in Physics 1973. Carl Richard Hagen is noted for his work in physics. In engineering, Clayton Jacobson II is credited with the invention of the modern personal watercraft. Ole Singstad was a pioneer of underwater tunnels. Ole Evinrude invented the first outboard motor with practical commercial application, recognizable today"
+          id: "4107064"
+          score: 1.6037977
+          hasanswer: false
+          isgold: false
+          original_retrieval_index: 1
+  gold_at_0:
+    prompts:
+      - "who got the first nobel prize in physics"
+    documents:
+      - 
+        - title: "List of Nobel laureates in Physics"
+          text: "The first Nobel Prize in Physics was awarded in 1901 to Wilhelm Conrad Röntgen, of Germany, who received 150,782 SEK, which is equal to 7,731,004 SEK in December 2007.  John Bardeen is the only laureate to win the prize twice—in 1956 and 1972. Maria Skłodowska-Curie also won two Nobel Prizes, for physics in 1903 and chemistry in 1911. William Lawrence Bragg was, until October 2014, the youngest ever Nobel laureate; he won the prize in 1915 at the age of 25. Two women have won the prize: Curie and Maria Goeppert-Mayer (1963). As of 2017, the prize has been awarded"
+          id: null
+          score: null
+          hasanswer: true
+          isgold: true
+          original_retrieval_index: null
+        - title: "Nobel Prize in Physics"
+          text: "receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was"
+          id: "628725"
+          score: 1.6234328
+          hasanswer: false
+          isgold: false
+          original_retrieval_index: 0
+  gold_at_9:
+    prompts:
+      - "who got the first nobel prize in physics"
+    documents:
+      - 
+        - title: "Nobel Prize in Physics"
+          text: "receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was"
+          id: "628725"
+          score: 1.6234328
+          hasanswer: false
+          isgold: false
+          original_retrieval_index: 0
+        - title: "Norwegian Americans"
+          text: "science, Ernest Lawrence won the Nobel Prize in Physics in 1939. Lars Onsager won the 1968 Nobel Prize in Chemistry. Norman Borlaug, father of the Green Revolution, won the Nobel Peace Prize in 1970. Christian B. Anfinsen won the Nobel Prize for chemistry in 1972. Ivar Giaever won the Nobel Prize in Physics 1973. Carl Richard Hagen is noted for his work in physics. In engineering, Clayton Jacobson II is credited with the invention of the modern personal watercraft. Ole Singstad was a pioneer of underwater tunnels. Ole Evinrude invented the first outboard motor with practical commercial application, recognizable today"
+          id: "4107064"
+          score: 1.6037977
+          hasanswer: false
+          isgold: false
+          original_retrieval_index: 1

@@ -1,4 +1,5 @@
 from common.entities import ExperimentType
+import common.nq_data as nq_data
 import common.consts as consts
 
 from argparse import Namespace
@@ -22,7 +23,7 @@ class AbstractExperiment(ABC):
             dirs=[consts.RESULTS_DIR, consts.DATA_DST_DIR]
         )
 
-        self._download_experiment_data_files(
+        nq_data.download_files(
             src_dir=consts.DATA_SRC_DIR,
             dst_dir=consts.DATA_DST_DIR,
             num_docs=args.num_docs

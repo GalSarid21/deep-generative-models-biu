@@ -1,5 +1,5 @@
 from pydantic.dataclasses import dataclass
-from typing import TypeVar, Optional, Type
+from typing import TypeVar, Optional, Type, Dict, Any
 from copy import deepcopy
 from enum import Enum
 
@@ -44,3 +44,14 @@ class Document:
         if score is not None:
             score = float(score)
         return cls(**dict(data, id=id, score=score))
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "title": self.title,
+            "text": self.text,
+            "id": self.id,
+            "score": self.score,
+            "hasanswer": self.hasanswer,
+            "isgold": self.isgold,
+            "original_retrieval_index": self.original_retrieval_index
+        }

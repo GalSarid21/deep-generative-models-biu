@@ -18,11 +18,12 @@ def test_data_downloading() -> None:
         shutil.rmtree(test_consts.DOCUMENTS_FOLDER_PATH)
 
     logging.info("Testing 'download_files' - downloading NQ data files")
-    nq_data.download_files(
+    created_folder = nq_data.download_files(
         src_dir=common_consts.DATA_SRC_DIR,
         dst_dir=common_consts.DATA_DST_DIR,
         num_docs=common_consts.SUPPORTED_NUM_DOCS[0]
     )
+    assert created_folder == test_consts.DOCUMENTS_FOLDER_PATH
 
     created_files = [
         f for f in os.listdir(test_consts.DOCUMENTS_FOLDER_PATH)
@@ -30,8 +31,13 @@ def test_data_downloading() -> None:
                 os.path.join(test_consts.DOCUMENTS_FOLDER_PATH, f)
             )
     ]
-    for file in test_consts.DOCUMETS_FOLDER_FILES:
-        assert file in created_files
+    assert len(created_files) == len(test_consts.DOCUMETS_FOLDER_FILES)
+
+    created_files.sort()
+    for res_file, src_file in zip(
+        created_files, test_consts.DOCUMETS_FOLDER_FILES
+    ):
+        assert res_file == src_file
 
 
 @pytest.mark.parametrize(
@@ -167,7 +173,7 @@ def test_nq_dict_creation(test_results: Dict[str, Any]) -> None:
     }
 
     data_test_subset_json = json.dumps(
-        data_test_subset, default=nq_data.data_serializer, indent=2
+        data_test_subset, default=nq_data.serialize, indent=2
     )
     logging.info(f"Openbook Files Ditionary:\n{data_test_subset_json}")
 

@@ -35,10 +35,10 @@ openbook_random_docs:
     original_retrieval_index: null
   # we don't test the non-gold since its shuffled.
 expected_log_msg: |
-  INFO     root:nq_data.py:26 Downloading NQ Data...
-  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
-  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
-  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
+  INFO     root:nq_data.py:27 Downloading NQ Data...
+  INFO     root:nq_data.py:54 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:54 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:54 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
 data_dict_keys:
   - gold_at_0
   - gold_at_4

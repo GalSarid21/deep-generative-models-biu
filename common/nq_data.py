@@ -1,7 +1,7 @@
 from common.entities import Document, PromptingMode
 
 from pathlib import Path
-from typing import List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Union, Any
 from random import shuffle
 from xopen import xopen
 from copy import deepcopy
@@ -18,44 +18,48 @@ def download_files(
     num_docs: int,
     dst_dir: str,
     src_dir: str
-) -> None:
+) -> str:
     """
     Downloads the NQ dataset files from the lost-in-the-middle local cloned
     repo at `src_dir` and saves it under `dst_dir`.
+    Returns the new folder that was created during downloading.
     """
     logging.info(f"Downloading NQ Data...")
-    data_folders = [
+    # lost in the middle suppose to have one folder
+    # for each number of test documents
+    data_folder = [
         f for f in os.listdir(src_dir)
         if os.path.isdir(os.path.join(src_dir, f))
             and f.startswith(str(num_docs))
-    ]
+    ][0]
 
-    for folder in data_folders:
-        src_folder = f"{src_dir}/{folder}"
-        dst_folder = f"{dst_dir}/{folder}"
-        os.makedirs(dst_folder, exist_ok=True)
+    src_folder = f"{src_dir}/{data_folder}"
+    dst_folder = f"{dst_dir}/{data_folder}"
+    os.makedirs(dst_folder, exist_ok=True)
 
-        for file_name in os.listdir(src_folder):
-            if file_name.endswith(".gz"):
-                src_file = f"{src_folder}/{file_name}"
-                dst_file = f"{dst_folder}/{file_name.replace('.gz', '')}"
+    for file_name in os.listdir(src_folder):
+        if file_name.endswith(".gz"):
+            src_file = f"{src_folder}/{file_name}"
+            dst_file = f"{dst_folder}/{file_name.replace('.gz', '')}"
 
-                if not os.path.exists(dst_file):
-                    with(
-                        gzip.open(src_file, "rb") as f_in,
-                        open(dst_file, "wb") as f_out
-                    ):
-                        logging.info(f"Downloading file: {src_file} to: {dst_file}")
-                        shutil.copyfileobj(f_in, f_out)
+            if not os.path.exists(dst_file):
+                with(
+                    gzip.open(src_file, "rb") as f_in,
+                    open(dst_file, "wb") as f_out
+                ):
+                    logging.info(f"Downloading file: {src_file} to: {dst_file}")
+                    shutil.copyfileobj(f_in, f_out)
 
-                else:
-                    logging.info(f"Skipping existing file: {src_file}")
+            else:
+                logging.info(f"Skipping existing file: {src_file}")
+
+    return dst_folder
 
 
 def read_files(
     folder_path: str,
     prompting_mode: PromptingMode
-) -> Dict[str, List[List[Document]]]:
+) -> Dict[str, Dict[str, Union[List[str], List[List[Document]]]]]:
 
     folder_path = Path(folder_path)
     jsonl_files = list(folder_path.glob("*.jsonl"))
@@ -118,7 +122,7 @@ def read_file(
     return all_questions, all_documents
 
 
-def data_serializer(obj: Any) -> Dict[str, str]:
+def serialize(obj: Any) -> Dict[str, str]:
     if isinstance(obj, Document):
         return obj.to_dict()
     elif (

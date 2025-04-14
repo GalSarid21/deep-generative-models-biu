@@ -1,9 +1,10 @@
-from common.entities import ExperimentType
+from common.entities import ExperimentType, PromptingMode
 import common.nq_data as nq_data
 import common.consts as consts
 
 from argparse import Namespace
-from typing import List
+from datetime import datetime
+from typing import List, Dict, Any
 from abc import ABC, abstractmethod
 import logging
 import shutil
@@ -23,11 +24,38 @@ class AbstractExperiment(ABC):
             dirs=[consts.RESULTS_DIR, consts.DATA_DST_DIR]
         )
 
-        nq_data.download_files(
+        created_folder = nq_data.download_files(
             src_dir=consts.DATA_SRC_DIR,
             dst_dir=consts.DATA_DST_DIR,
             num_docs=args.num_docs
         )
+
+        self._prompting_mode = PromptingMode(args.prompting_mode)
+        self._data = nq_data.read_files(
+            folder_path=created_folder,
+            prompting_mode=self._prompting_mode
+        )
+
+        results = {
+            "experiment_type": self._TYPE.value,
+            "num_documents": args.num_docs,
+            "prompting_mode": self._prompting_mode.value,
+            "execution_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        }
+        for key in self._data.keys():
+            results.update({
+                key: {
+                    "model_answers": [],
+                    # [{"value": 1.0, "metric": "best_subset_em"}]
+                    "scores": [],
+                    "num_prompt_tokens": []
+                }
+            })
+        self._results = results
+
+    @property
+    def results(self) -> Dict[str, Any]:
+        return self._results
 
     @classmethod
     def get_type(cls) -> ExperimentType:

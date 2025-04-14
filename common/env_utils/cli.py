@@ -1,4 +1,4 @@
-from common.entities import ExperimentType
+from common.entities import ExperimentType, PromptingMode
 import common.consts as consts
 
 from argparse import ArgumentParser, Namespace
@@ -13,7 +13,8 @@ def read_cli_env_args() -> Namespace:
         "--experiment",
         help="experiment type to run.",
         type=str,
-        choices=[et.value for et in ExperimentType]
+        choices=[et.value for et in ExperimentType],
+        # default=ExperimentType.
     )
 
     parser.add_argument(
@@ -40,9 +41,10 @@ def read_cli_env_args() -> Namespace:
 
     parser.add_argument(
         "--prompting_mode",
-        help="experiment type to run.",
+        help="prompt type to use",
         type=str,
-        choices=[et.value for et in ExperimentType]
+        choices=[pm.value for pm in PromptingMode],
+        default=PromptingMode.OPENBOOK.value
     )
 
     args = parser.parse_args()

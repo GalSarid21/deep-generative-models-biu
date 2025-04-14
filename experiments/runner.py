@@ -25,9 +25,8 @@ def _get_experiment_class(args: Namespace) -> Type[AbstractExperiment]:
     except Exception:
         # raise readable custom error
         raise ValueError(
-            consts.INVALID_ENUM_CREATION_MSG.format(
-                obj=ExperimentType, arg=args.experiment
-            )
+            f"Tried to create {ExperimentType} instance with invalid " +
+            f"`prompting_mode` value: {args.experiment}"
         )
 
     for experiment_cls in ALL_EXPERIMENTS:

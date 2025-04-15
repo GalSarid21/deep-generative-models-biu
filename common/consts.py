@@ -8,3 +8,9 @@ SUPPORTED_MODELS = [
     "tiiuae/Falcon3-Mamba-7B-Instruct",
     "meta-llama/Llama-3.1-8B-Instruct"
 ]
+
+SUPPORTED_DTYPES = ["bfloat16", "float16"]
+DEFAULT_MAX_TOKENS = 100
+DEFAULT_NUM_GPUS = 1
+DEFAULT_TEMPERATURE = 0.0
+DEFAULT_TOP_P = 1.0

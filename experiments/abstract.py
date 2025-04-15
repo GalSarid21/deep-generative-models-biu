@@ -1,3 +1,5 @@
+from src.wrappers.hf_tokenizer import HfTokenizer
+from src.prompt_builder import PromptBuilder
 from common.entities import ExperimentType, PromptingMode
 import common.nq_data as nq_data
 import common.consts as consts
@@ -36,6 +38,17 @@ class AbstractExperiment(ABC):
             prompting_mode=self._prompting_mode
         )
 
+        self._tokenizer = HfTokenizer(args.model)
+        self._prompt_builder = PromptBuilder(self._prompting_mode)
+
+        # vLLM sampling params
+        self._sampling_params = {
+            "temperature": args.temperature,
+            "max_tokens": args.max_tokens,
+            "top_p": args.top_p
+        }
+
+        # results object
         results = {
             "experiment_type": self._TYPE.value,
             "num_documents": args.num_docs,
@@ -60,6 +73,19 @@ class AbstractExperiment(ABC):
     @classmethod
     def get_type(cls) -> ExperimentType:
         return cls._TYPE
+
+    def _add_new_result_entry(
+        self,
+        prompt: str,
+        key: str,
+        model_answer: str,
+        score: float
+    ) -> None:
+
+        num_prompt_tokens = self._tokenizer.count_tokens(prompt=prompt)
+        self._results[key]["model_answers"].append(model_answer)
+        self._results[key]["scores"].append(score)
+        self._results[key]["num_prompt_tokens"].append(num_prompt_tokens)
 
     def _create_process_dirs(self, dirs: List[str]) -> None:
         for dir in dirs:

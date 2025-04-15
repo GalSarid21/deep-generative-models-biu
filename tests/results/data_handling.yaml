@@ -1,7 +1,9 @@
 closedbook_num_docs: 0
+closedbook_num_answers: 2655
 closedbook_num_questions: 2655
 closedbook_question: "who got the first nobel prize in physics" # question idx=0
 openbook_num_docs: 2655
+openbook_num_answers: 2655
 openbook_num_questions: 2655
 openbook_question: "when is the next deadpool movie being released" # question idx=1
 openbook_docs:
@@ -22,6 +24,7 @@ openbook_docs:
     isgold: False
     original_retrieval_index: 0
 openbook_random_num_docs: 2655
+openbook_random_num_answers: 2655
 openbook_random_num_questions: 2655
 openbook_random_question: "the south west wind blows across nigeria between" # question idx=2
 openbook_random_docs:
@@ -47,6 +50,9 @@ data_dict_subset:
   gold_at_4:
     questions:
       - "who got the first nobel prize in physics"
+    answers:
+      -
+        - "Wilhelm Conrad R\u00f6ntgen"
     documents:
       -
         - title: "Nobel Prize in Physics"
@@ -66,6 +72,9 @@ data_dict_subset:
   gold_at_0:
     questions:
       - "who got the first nobel prize in physics"
+    answers:
+      -
+        - "Wilhelm Conrad R\u00f6ntgen"
     documents:
       - 
         - title: "List of Nobel laureates in Physics"
@@ -85,6 +94,9 @@ data_dict_subset:
   gold_at_9:
     questions:
       - "who got the first nobel prize in physics"
+    answers:
+      -
+        - "Wilhelm Conrad R\u00f6ntgen"
     documents:
       - 
         - title: "Nobel Prize in Physics"

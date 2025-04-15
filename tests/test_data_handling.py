@@ -74,12 +74,13 @@ def test_closedbook_documents_list_creation(
 ) -> None:
 
     download_nq_files_if_needed()
-    questions, documents = nq_data.read_file(
+    questions, answers, documents = nq_data.read_file(
         file_path=test_consts.TEST_DOCUMENT_PATH,
         prompting_mode=PromptingMode.CLOSEDBOOK
     )
 
     assert len(documents) == test_results["closedbook_num_docs"]
+    assert len(answers) == test_results["closedbook_num_answers"]
     assert len(questions) == test_results["closedbook_num_questions"]
     assert questions[0] == test_results["closedbook_question"]
 
@@ -94,13 +95,14 @@ def test_openbook_documents_list_creation(
 ) -> None:
 
     download_nq_files_if_needed()
-    questions, documents = nq_data.read_file(
+    questions, answers, documents = nq_data.read_file(
         file_path=test_consts.TEST_DOCUMENT_PATH,
         prompting_mode=PromptingMode.OPENBOOK
     )
 
     test_idx = 1
     assert len(documents) == test_results["openbook_num_docs"]
+    assert len(answers) == test_results["openbook_num_answers"]
     assert len(questions) == test_results["openbook_num_questions"]
     assert questions[test_idx] == test_results["openbook_question"]
 
@@ -126,13 +128,14 @@ def test_openbook_random_documents_list_creation(
 ) -> None:
     
     download_nq_files_if_needed()
-    questions, documents = nq_data.read_file(
+    questions, answers, documents = nq_data.read_file(
         file_path=test_consts.TEST_DOCUMENT_PATH,
         prompting_mode=PromptingMode.OPENBOOK_RANDOM
     )
 
     test_idx = 2
     assert len(documents) == test_results["openbook_random_num_docs"]
+    assert len(answers) == test_results["openbook_random_num_answers"]
     assert len(questions) == test_results["openbook_random_num_questions"]
     assert questions[test_idx] == test_results["openbook_random_question"]
 
@@ -167,6 +170,7 @@ def test_nq_dict_creation(test_results: Dict[str, Any]) -> None:
     data_test_subset = {
         key: {
             "questions": [data[key]["questions"][0]],
+            "answers": [data[key]["answers"][0]],
             "documents": [data[key]["documents"][0][:2]]
         }
         for key in data.keys()
@@ -175,7 +179,7 @@ def test_nq_dict_creation(test_results: Dict[str, Any]) -> None:
     data_test_subset_json = json.dumps(
         data_test_subset, default=nq_data.serialize, indent=2
     )
-    logging.info(f"Openbook Files Ditionary:\n{data_test_subset_json}")
+    logging.info(f"Openbook Files Dictionary:\n{data_test_subset_json}")
 
     data_test_subset_json_dict = json.loads(data_test_subset_json)
     assert data_test_subset_json_dict == test_results["data_dict_subset"]

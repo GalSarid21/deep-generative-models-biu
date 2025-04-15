@@ -28,7 +28,7 @@ def read_cli_env_args() -> Namespace:
         help="number of documents to use in the experiment.",
         type=int,
         choices=consts.SUPPORTED_NUM_DOCS,
-        default=consts.SUPPORTED_NUM_DOCS[0]
+        default=consts.SUPPORTED_NUM_DOCS[0] # 10
     )
 
     parser.add_argument(
@@ -36,20 +36,56 @@ def read_cli_env_args() -> Namespace:
         help="HF model repo to use in experiment.",
         type=str,
         choices=consts.SUPPORTED_MODELS,
-        default=consts.SUPPORTED_MODELS[0]
+        default=consts.SUPPORTED_MODELS[0] # "tiiuae/Falcon3-Mamba-7B-Instruct"
+    )
+
+    parser.add_argument(
+        "--dtype",
+        help="torch dtype to use during model loading.",
+        type=str,
+        choices=consts.SUPPORTED_DTYPES,
+        default=consts.SUPPORTED_DTYPES[0] # bfloat16
     )
 
     parser.add_argument(
         "--prompting_mode",
-        help="prompt type to use",
+        help="prompting type to use in experiment.",
         type=str,
         choices=[pm.value for pm in PromptingMode],
         default=PromptingMode.OPENBOOK.value
     )
 
+    parser.add_argument(
+        "--num_gpus",
+        help="number of GPUs to use in experiment.",
+        type=int,
+        default=consts.DEFAULT_NUM_GPUS
+    )
+
+    parser.add_argument(
+        "--temperature",
+        help="temperature to use in generation.",
+        type=float,
+        default=consts.DEFAULT_TEMPERATURE
+    )
+
+    parser.add_argument(
+        "--top_p",
+        help="top-p to use in generation.",
+        type=float,
+        default=consts.DEFAULT_TOP_P
+    )
+
+    parser.add_argument(
+        "--max_tokens",
+        help="maximum number of new tokens to generate.",
+        type=int,
+        default=consts.DEFAULT_MAX_TOKENS,
+    )
+
     args = parser.parse_args()
     logging.info(
         "Environment Variables:\n" +
-        json.dumps(vars(args), indent=4)
+        json.dumps(vars(args), indent=2)
     )
     return args

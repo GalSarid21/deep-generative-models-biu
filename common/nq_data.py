@@ -62,10 +62,12 @@ def read_files(
 ) -> Dict[str, Dict[str, Union[List[str], List[List[Document]]]]]:
 
     folder_path = Path(folder_path)
+    logging.info(f"Creating documents from {folder_path} folder...")
+
     jsonl_files = list(folder_path.glob("*.jsonl"))
     files_data = {}
     for jsonl in jsonl_files:
-        questions, documents = read_file(
+        questions, answers, documents = read_file(
             file_path=jsonl, prompting_mode=prompting_mode
         )
         # stem should look like the following:
@@ -74,7 +76,11 @@ def read_files(
         # create a short name such as "gold_at_0"
         file_short_name = jsonl.stem.split("_documents_")[-1]
         files_data.update({
-            file_short_name: {"questions": questions, "documents": documents}
+            file_short_name: {
+                "questions": questions,
+                "answers": answers,
+                "documents": documents
+            }
         })
 
     return files_data
@@ -83,19 +89,24 @@ def read_files(
 def read_file(
     file_path: str,
     prompting_mode: PromptingMode
-) -> Tuple[List[str], List[List[Document]]]:
+) -> Tuple[List[str], List[List[str]], List[List[Document]]]:
     """
     Reads NQ dataset file using `file_path` and creates a list of lists
     of documents with a matching list of questions.
     """
     all_questions = []
     all_documents = []
+    all_answers = []
 
     with xopen(file_path) as fin:
         for line in tqdm(fin):
             input_example = json.loads(line)
+            # get example's question
             question = input_example["question"]
             all_questions.append(question)
+            # get example's answers
+            answers = input_example["answers"]
+            all_answers.append(answers)
             if prompting_mode is PromptingMode.CLOSEDBOOK:
                 # closedbook doesn not need context document - 
                 # we're returning and empty list
@@ -119,7 +130,7 @@ def read_file(
 
             all_documents.append(documents)
 
-    return all_questions, all_documents
+    return all_questions, all_answers, all_documents
 
 
 def serialize(obj: Any) -> Dict[str, str]:

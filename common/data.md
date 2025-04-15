@@ -5,6 +5,11 @@
     "questions": [
       "who got the first nobel prize in physics"
     ],
+    "answers": [
+      [
+        "Wilhelm Conrad R\u00f6ntgen"
+      ]
+    ],
     "documents": [
       [
         {
@@ -32,6 +37,11 @@
     "questions": [
       "who got the first nobel prize in physics"
     ],
+    "answers": [
+      [
+        "Wilhelm Conrad R\u00f6ntgen"
+      ]
+    ],
     "documents": [
       [
         {
@@ -58,6 +68,11 @@
   "gold_at_9": {
     "questions": [
       "who got the first nobel prize in physics"
+    ],
+    "answers": [
+      [
+        "Wilhelm Conrad R\u00f6ntgen"
+      ]
     ],
     "documents": [
       [

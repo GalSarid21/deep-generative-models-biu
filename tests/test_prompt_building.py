@@ -52,7 +52,7 @@ def test_openboom_random_prompt_builder(test_results: Dict[str, Any]) -> None:
 def test_closedbook_prompt_builder(test_results: Dict[str, Any]) -> None:
     download_nq_files_if_needed()
     prompting_mode = PromptingMode.CLOSEDBOOK
-    questions, documents_lists = nq_data.read_file(
+    questions, _, documents_lists = nq_data.read_file(
         file_path=test_consts.TEST_DOCUMENT_PATH,
         prompting_mode=prompting_mode
     )
@@ -76,7 +76,7 @@ def _get_test_prompt_with_documents(
 ) -> Tuple[List[str], List[List[Document]]]:
 
     download_nq_files_if_needed()
-    questions, documents_lists = nq_data.read_file(
+    questions, _, documents_lists = nq_data.read_file(
         file_path=test_consts.TEST_DOCUMENT_PATH,
         prompting_mode=prompting_mode
     )

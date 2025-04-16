@@ -70,7 +70,7 @@ pluggy==1.5.0
 prometheus-fastapi-instrumentator==7.1.0
 prometheus_client==0.21.1
 propcache==0.3.1
-protobuf==6.30.2
+protobuf==4.23.4
 psutil==7.0.0
 py-cpuinfo==9.0.0
 pycountry==24.6.1
@@ -112,7 +112,7 @@ typing_extensions==4.13.2
 urllib3==2.4.0
 uvicorn==0.34.1
 uvloop==0.21.0
-vllm==0.8.3
+vllm==0.8.4
 watchfiles==1.0.5
 websockets==15.0.1
 xopen==2.0.2

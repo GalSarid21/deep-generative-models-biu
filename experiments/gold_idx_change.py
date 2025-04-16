@@ -58,14 +58,17 @@ class GoldIdxChange(AbstractExperiment):
     ) -> None:
 
         results = {
+            "model": args.model,
             "experiment_type": self._TYPE.value,
             "num_documents": args.num_docs,
             "prompting_mode": self._prompting_mode.value,
             "execution_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "experiments": {}
         }
 
+        experiments = results["experiments"]
         for key in self._data.keys():
-            results.update({
+            experiments.update({
                 key: {
                     "model_answers": [],
                     # [{"value": 1.0, "metric": "best_subset_em"}]

@@ -82,9 +82,10 @@ class AbstractExperiment(ABC):
             for prompt in prompts
         ]
 
-        self._results[key]["model_answers"].extend(model_answers)
-        self._results[key]["scores"].extend(scores)
-        self._results[key]["num_prompt_tokens"].extend(num_prompt_tokens_list)
+        experiment = self._results["experiments"][key]
+        experiment["model_answers"].extend(model_answers)
+        experiment["scores"].extend(scores)
+        experiment["num_prompt_tokens"].extend(num_prompt_tokens_list)
 
     def _create_process_dirs(self, dirs: List[str]) -> None:
         for dir in dirs:
@@ -159,7 +160,7 @@ class AbstractExperiment(ABC):
         prompting_mode = self._results["prompting_mode"]
         timestamp = int(datetime.datetime.now(datetime.UTC).timestamp())
         result_file_name = f"experiment_{experiment_type}_docs_{num_docs}" \
-            + f"_prompting_mode_{prompting_mode}_{timestamp}.jsonl"
+            + f"_prompting_mode_{prompting_mode}_{timestamp}.json"
         result_file_path = f"{consts.RESULTS_DIR}/{result_file_name}"
 
         with xopen(result_file_path, "w") as f:

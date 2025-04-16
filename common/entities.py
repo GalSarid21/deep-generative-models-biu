@@ -8,7 +8,6 @@ T = TypeVar("T")
 
 
 class ExperimentType(StrEnum):
-    TEST = "test"
     GOLD_IDX_CHANGE = "gold-idx-change"
     NUM_DOCS_CHANGE = "num-docs-change"
 

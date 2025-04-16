@@ -14,21 +14,13 @@ def read_cli_env_args() -> Namespace:
         help="experiment type to run.",
         type=str,
         choices=[et.value for et in ExperimentType],
-        # default=ExperimentType.
+        default=ExperimentType.GOLD_IDX_CHANGE
     )
 
     parser.add_argument(
         "--hf_token",
         help="HF Token for model downloading.",
         type=str
-    )
-
-    parser.add_argument(
-        "--num_docs",
-        help="number of documents to use in the experiment.",
-        type=int,
-        choices=consts.SUPPORTED_NUM_DOCS,
-        default=consts.SUPPORTED_NUM_DOCS[0] # 10
     )
 
     parser.add_argument(
@@ -52,7 +44,7 @@ def read_cli_env_args() -> Namespace:
         help="prompting type to use in experiment.",
         type=str,
         choices=[pm.value for pm in PromptingMode],
-        default=PromptingMode.OPENBOOK.value
+        default=PromptingMode.OPENBOOK_RANDOM.value
     )
 
     parser.add_argument(
@@ -81,6 +73,29 @@ def read_cli_env_args() -> Namespace:
         help="maximum number of new tokens to generate.",
         type=int,
         default=consts.DEFAULT_MAX_TOKENS,
+    )
+
+    # relevant for gold_idx_change experiment
+    parser.add_argument(
+        "--num_docs",
+        help="number of documents to use in the experiment [when relevant].",
+        type=int,
+        choices=consts.SUPPORTED_NUM_DOCS
+    )
+
+    # relevant for num_docs_change experiment
+    parser.add_argument(
+        "--golden_idx",
+        help="index of golden answer index to use in the experiment [when relevant].",
+        type=int,
+        choices=consts.SUPPORTED_GOLDEN_IDXS
+    )
+
+    parser.add_argument(
+        "--test_mode",
+        help="boolean that indicates the experiment should run in test mode.",
+        type=bool,
+        default=False,
     )
 
     args = parser.parse_args()

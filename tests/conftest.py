@@ -1,5 +1,5 @@
-from src.wrappers.hf_tokenizer import HfTokenizer
 from tests.mocks.vllm_wrapper import vLLMWrapperMock
+from src.wrappers import HfTokenizer
 import common.nq_data as nq_data
 import common.consts as common_consts
 import tests.consts as test_consts
@@ -58,7 +58,7 @@ def hf_tokenizer(request) -> Dict[str, Any]:
 
 def download_nq_files_if_needed() -> None:
     if not os.path.exists(test_consts.DOCUMENTS_FOLDER_PATH):
-        nq_data.download_files(
+        nq_data.download_files_by_num_docs(
             src_dir=common_consts.DATA_SRC_DIR,
             dst_dir=common_consts.DATA_DST_DIR,
             num_docs=common_consts.SUPPORTED_NUM_DOCS[0]

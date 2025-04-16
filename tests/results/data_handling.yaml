@@ -1,7 +1,9 @@
 closedbook_num_docs: 0
+closedbook_num_answers: 2655
 closedbook_num_questions: 2655
 closedbook_question: "who got the first nobel prize in physics" # question idx=0
 openbook_num_docs: 2655
+openbook_num_answers: 2655
 openbook_num_questions: 2655
 openbook_question: "when is the next deadpool movie being released" # question idx=1
 openbook_docs:
@@ -22,6 +24,7 @@ openbook_docs:
     isgold: False
     original_retrieval_index: 0
 openbook_random_num_docs: 2655
+openbook_random_num_answers: 2655
 openbook_random_num_questions: 2655
 openbook_random_question: "the south west wind blows across nigeria between" # question idx=2
 openbook_random_docs:
@@ -34,22 +37,44 @@ openbook_random_docs:
     isgold: True
     original_retrieval_index: null
   # we don't test the non-gold since its shuffled.
-expected_log_msg: |
-  INFO     root:nq_data.py:26 Downloading NQ Data...
-  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
-  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
-  INFO     root:nq_data.py:52 Skipping existing file: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
-data_dict_keys:
+expected_log_msg: |-
+  INFO     root:nq_data.py:166 Downloading NQ Data [num_docs=10]...
+  INFO     root:nq_data.py:245 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
+  INFO     root:nq_data.py:198 Downloading NQ Data [gold_idx=29]...
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_14.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_19.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_9.jsonl.gz
+  INFO     root:nq_data.py:241 Downloading file: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_29.jsonl.gz to: ./qa_data/30_total_documents/nq-open-30_total_documents_gold_at_29.jsonl
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_24.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_14.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_19.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_9.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
+gold_idx_data_dict_keys:
   - gold_at_0
   - gold_at_4
   - gold_at_9
-data_dict_subset:
+num_docs_data_dict_keys:
+  - 10_total_documents
+  - 20_total_documents
+  - 30_total_documents
+gold_idx_data_dict_subset:
   gold_at_4:
     questions:
       - "who got the first nobel prize in physics"
-    documents:
+    answers:
       -
-        - title: "Nobel Prize in Physics"
+        - "Wilhelm Conrad R\u00f6ntgen"
+    documents:
+      - - title: "Nobel Prize in Physics"
           text: "receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was"
           id: "628725"
           score: 1.6234328
@@ -66,9 +91,10 @@ data_dict_subset:
   gold_at_0:
     questions:
       - "who got the first nobel prize in physics"
+    answers:
+      - - "Wilhelm Conrad R\u00f6ntgen"
     documents:
-      - 
-        - title: "List of Nobel laureates in Physics"
+      - - title: "List of Nobel laureates in Physics"
           text: "The first Nobel Prize in Physics was awarded in 1901 to Wilhelm Conrad Röntgen, of Germany, who received 150,782 SEK, which is equal to 7,731,004 SEK in December 2007.  John Bardeen is the only laureate to win the prize twice—in 1956 and 1972. Maria Skłodowska-Curie also won two Nobel Prizes, for physics in 1903 and chemistry in 1911. William Lawrence Bragg was, until October 2014, the youngest ever Nobel laureate; he won the prize in 1915 at the age of 25. Two women have won the prize: Curie and Maria Goeppert-Mayer (1963). As of 2017, the prize has been awarded"
           id: null
           score: null
@@ -85,9 +111,10 @@ data_dict_subset:
   gold_at_9:
     questions:
       - "who got the first nobel prize in physics"
+    answers:
+      - - "Wilhelm Conrad R\u00f6ntgen"
     documents:
-      - 
-        - title: "Nobel Prize in Physics"
+      - - title: "Nobel Prize in Physics"
           text: "receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was"
           id: "628725"
           score: 1.6234328
@@ -101,3 +128,64 @@ data_dict_subset:
           hasanswer: false
           isgold: false
           original_retrieval_index: 1
+num_docs_data_dict_subset:
+  10_total_documents:
+    questions:
+      - "who got the first nobel prize in physics"
+    answers:
+      - - "Wilhelm Conrad R\u00f6ntgen"
+    documents:
+      - - title: "List of Nobel laureates in Physics"
+          text: "The first Nobel Prize in Physics was awarded in 1901 to Wilhelm Conrad Röntgen, of Germany, who received 150,782 SEK, which is equal to 7,731,004 SEK in December 2007.  John Bardeen is the only laureate to win the prize twice—in 1956 and 1972. Maria Skłodowska-Curie also won two Nobel Prizes, for physics in 1903 and chemistry in 1911. William Lawrence Bragg was, until October 2014, the youngest ever Nobel laureate; he won the prize in 1915 at the age of 25. Two women have won the prize: Curie and Maria Goeppert-Mayer (1963). As of 2017, the prize has been awarded"
+          id: null
+          score: null
+          hasanswer: true
+          isgold: true
+          original_retrieval_index: null
+        - title: "Nobel Prize in Physics"
+          text: "receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was"
+          id: "628725"
+          score: 1.6234328
+          hasanswer: false
+          isgold: false
+          original_retrieval_index: 0
+  20_total_documents:
+    questions:
+      - "who got the first nobel prize in physics"
+    answers:
+      - - "Wilhelm Conrad R\u00f6ntgen"
+    documents:
+      - - title: "List of Nobel laureates in Physics"
+          text: "The first Nobel Prize in Physics was awarded in 1901 to Wilhelm Conrad Röntgen, of Germany, who received 150,782 SEK, which is equal to 7,731,004 SEK in December 2007.  John Bardeen is the only laureate to win the prize twice—in 1956 and 1972. Maria Skłodowska-Curie also won two Nobel Prizes, for physics in 1903 and chemistry in 1911. William Lawrence Bragg was, until October 2014, the youngest ever Nobel laureate; he won the prize in 1915 at the age of 25. Two women have won the prize: Curie and Maria Goeppert-Mayer (1963). As of 2017, the prize has been awarded"
+          id: null
+          score: null
+          hasanswer: true
+          isgold: true
+          original_retrieval_index: null
+        - title: "Nobel Prize in Physics"
+          text: "receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was"
+          id: "628725"
+          score: 1.6234328
+          hasanswer: false
+          isgold: false
+          original_retrieval_index: 0
+  30_total_documents:
+    questions:
+      - who got the first nobel prize in physics
+    answers:
+      - - "Wilhelm Conrad R\u00f6ntgen"
+    documents:
+      - - title: "List of Nobel laureates in Physics"
+          text: "The first Nobel Prize in Physics was awarded in 1901 to Wilhelm Conrad Röntgen, of Germany, who received 150,782 SEK, which is equal to 7,731,004 SEK in December 2007.  John Bardeen is the only laureate to win the prize twice—in 1956 and 1972. Maria Skłodowska-Curie also won two Nobel Prizes, for physics in 1903 and chemistry in 1911. William Lawrence Bragg was, until October 2014, the youngest ever Nobel laureate; he won the prize in 1915 at the age of 25. Two women have won the prize: Curie and Maria Goeppert-Mayer (1963). As of 2017, the prize has been awarded"
+          id: null
+          score: null
+          hasanswer: true
+          isgold: true
+          original_retrieval_index: null
+        - title: "Nobel Prize in Physics"
+          text: "receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was"
+          id: "628725"
+          score: 1.6234328
+          hasanswer: false
+          isgold: false
+          original_retrieval_index: 0

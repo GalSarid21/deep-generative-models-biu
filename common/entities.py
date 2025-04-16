@@ -1,19 +1,18 @@
 from pydantic.dataclasses import dataclass
 from typing import TypeVar, Optional, Type, Dict, Any
 from copy import deepcopy
-from enum import Enum
+from enum import StrEnum
 
 
 T = TypeVar("T")
 
 
-class ExperimentType(Enum):
-    TEST = "test"
+class ExperimentType(StrEnum):
     GOLD_IDX_CHANGE = "gold-idx-change"
     NUM_DOCS_CHANGE = "num-docs-change"
 
 
-class PromptingMode(Enum):
+class PromptingMode(StrEnum):
     CLOSEDBOOK = "closedbook"
     OPENBOOK = "openbook"
     OPENBOOK_RANDOM = "openbook-random"
@@ -46,12 +45,5 @@ class Document:
         return cls(**dict(data, id=id, score=score))
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
-            "title": self.title,
-            "text": self.text,
-            "id": self.id,
-            "score": self.score,
-            "hasanswer": self.hasanswer,
-            "isgold": self.isgold,
-            "original_retrieval_index": self.original_retrieval_index
-        }
+        field_names = list(self.__annotations__.keys())
+        return {field: getattr(self, field) for field in field_names}

@@ -42,6 +42,7 @@ class AbstractExperiment(ABC):
         self._llm = self._load_llm(args)
         self._sampling_params = self._get_llm_sampling_params(args)
 
+        self._results_dir = args.results_dir or consts.RESULTS_DIR
         self._data = None
         self._results = None
 

@@ -88,7 +88,7 @@ def read_cli_env_args() -> Namespace:
         "--golden_idx",
         help="index of golden answer index to use in the experiment [when relevant].",
         type=int,
-        choices=consts.SUPPORTED_GOLDEN_IDXS
+        choices=consts.SUPPORTED_GOLD_IDXS
     )
 
     parser.add_argument(
@@ -96,6 +96,12 @@ def read_cli_env_args() -> Namespace:
         help="boolean that indicates the experiment should run in test mode.",
         type=bool,
         default=False,
+    )
+
+    parser.add_argument(
+        "--results_dir",
+        help="external directory to store the experiment results.",
+        type=str
     )
 
     args = parser.parse_args()

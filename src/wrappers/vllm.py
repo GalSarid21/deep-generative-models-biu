@@ -12,7 +12,7 @@ class vLLMWrapper:
         model: str,
         dtype: str,
         num_gpus: int,
-        load_format: Optional[str] = "pt",
+        max_model_len: Optional[int] = 32_000,
         gpu_memory_utilization: Optional[float] = 0.9
     ) -> None:
 
@@ -21,7 +21,7 @@ class vLLMWrapper:
             dtype=dtype,
             tensor_parallel_size=num_gpus,
             trust_remote_code=True,
-            load_format=load_format,
+            max_model_len=max_model_len,
             gpu_memory_utilization=gpu_memory_utilization
         )
 

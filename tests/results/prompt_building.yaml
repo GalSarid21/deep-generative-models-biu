@@ -1,6 +1,7 @@
 openbook: |-
-  Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant).
-
+  <|begin_of_text|><|im_start|>system
+  Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant).<|im_end|>
+  <|im_start|>user
   Search Results:
   Document [1](Title: List of Nobel laureates in Physics) The first Nobel Prize in Physics was awarded in 1901 to Wilhelm Conrad Röntgen, of Germany, who received 150,782 SEK, which is equal to 7,731,004 SEK in December 2007.  John Bardeen is the only laureate to win the prize twice—in 1956 and 1972. Maria Skłodowska-Curie also won two Nobel Prizes, for physics in 1903 and chemistry in 1911. William Lawrence Bragg was, until October 2014, the youngest ever Nobel laureate; he won the prize in 1915 at the age of 25. Two women have won the prize: Curie and Maria Goeppert-Mayer (1963). As of 2017, the prize has been awarded
   Document [2](Title: Nobel Prize in Physics) receive a diploma, a medal and a document confirming the prize amount. Nobel Prize in Physics The Nobel Prize in Physics () is a yearly award given by the Royal Swedish Academy of Sciences for those who have made the most outstanding contributions for mankind in the field of physics. It is one of the five Nobel Prizes established by the will of Alfred Nobel in 1895 and awarded since 1901; the others being the Nobel Prize in Chemistry, Nobel Prize in Literature, Nobel Peace Prize, and Nobel Prize in Physiology or Medicine. The first Nobel Prize in Physics was
@@ -15,16 +16,18 @@ openbook: |-
 
   Question: who got the first nobel prize in physics
 
-  Answer:
+  Answer:<|im_end|>
 closedbook: |-
-  Write a high-quality answer for the given question.
-
+  <|begin_of_text|><|im_start|>system
+  Write a high-quality answer for the given question.<|im_end|>
+  <|im_start|>user
   Question: who got the first nobel prize in physics
 
-  Answer:
+  Answer:<|im_end|>
 openbook_random: |-
+  <|begin_of_text|><|im_start|>system
   Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant). The search results are ordered randomly.
-
+  <|im_start|>user
   Search Results:
   Document [1](Title: Deadpool 2) Deadpool 2 is scheduled to be released in the United States on May 18, 2018.  A sequel, Deadpool 3, is in development.
   Document [2](Title: Deadpool 2) at the convention moderated by Soni and featuring other cast members. Some of the scenes cut from the theatrical version of the film were debuted at the panel. At the end of September 2018, Fox announced that it would release an untitled "Deadpool" film in theaters on December 21. The studio suggested that press and fans "guess away" as to what this new film would be, but it was believed to be a re-cut version of "Deadpool 2" that would carry a PG-13 rating rather than being R-rated like the initial theatrical release. Reynolds hinted that the version of the
@@ -39,4 +42,4 @@ openbook_random: |-
 
   Question: when is the next deadpool movie being released
 
-  Answer:
+  Answer:<|im_end|>

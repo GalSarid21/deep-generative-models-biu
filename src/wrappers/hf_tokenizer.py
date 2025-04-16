@@ -1,5 +1,7 @@
+from common.utils import get_messages_list
+
 from transformers import AutoTokenizer, TensorType
-from typing import List, Dict, Any
+from typing import List, Dict, Optional, Any
 
 
 class HfTokenizer:
@@ -19,6 +21,23 @@ class HfTokenizer:
     @property
     def eos_token_id(self) -> int:
         return self._tokenizer.eos_token_id
+
+    def tokenize(
+        self,
+        text: str,
+        pair: Optional[str] = None,
+        add_special_tokens: bool = False,
+        **kwargs
+    ) -> List[str]:
+        """
+        Exposing the 'tokenize' method with its HF signature.
+        """
+        return self._tokenizer.tokenize(
+            text=text,
+            pair=pair,
+            add_special_tokens=add_special_tokens,
+            **kwargs
+        )
 
     def apply_chat_template(
         self,
@@ -49,7 +68,11 @@ class HfTokenizer:
             **tokenizer_kwargs
         )
 
-    def count_tokens(self, **kwargs) -> int:
+    def count_tokens(
+        self,
+        prompt_with_inst_tokens: Optional[bool] = False,
+        **kwargs
+    ) -> int:
         """
         Function to count tokens using the 'apply_chat_template' method,
         meaning that we consider the prompt special tokens being added
@@ -58,15 +81,22 @@ class HfTokenizer:
         Gets **kwargs input to handle both messages (List[Dict[str, str]])
         and prompt (str) inputs correctly.
 
+        If `prompt_with_inst_tokens` is not None, that means we want to
+        tokenize the existing prompt without adding the instruction tokens
+        again.
+
         Raises an exception if none of those two variables are being passed.
         """
         if kwargs.get("prompt"):
             prompt = kwargs.get("prompt")
-            messages = [{"role": "user", "content": prompt}]
+            if prompt_with_inst_tokens is True:
+                tokenized_prompt = self.tokenize(prompt)
+                return len(tokenized_prompt)
+            messages = get_messages_list(user=prompt)
         
         elif kwargs.get("messages"):
             messages = kwargs.get("messages")
-        
+
         else:
             raise Exception(
                 "'count_tokens' function must get either 'prompt' or " +

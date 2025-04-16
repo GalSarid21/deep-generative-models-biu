@@ -37,7 +37,10 @@ class AbstractExperiment(ABC):
 
         self._prompting_mode = PromptingMode(args.prompting_mode)
         self._tokenizer = HfTokenizer(args.model)
-        self._prompt_builder = PromptBuilder(self._prompting_mode)
+        self._prompt_builder = PromptBuilder(
+            prompting_mode=self._prompting_mode,
+            tokenizer=self._tokenizer
+        )
 
         self._llm = self._load_llm(args)
         self._sampling_params = self._get_llm_sampling_params(args)
@@ -79,8 +82,9 @@ class AbstractExperiment(ABC):
     ) -> None:
 
         num_prompt_tokens_list = [
-            self._tokenizer.count_tokens(prompt=prompt)
-            for prompt in prompts
+            self._tokenizer.count_tokens(
+                prompt=prompt, prompt_with_inst_tokens=True
+            ) for prompt in prompts
         ]
 
         experiment = self._results["experiments"][key]

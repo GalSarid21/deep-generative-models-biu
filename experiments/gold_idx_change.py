@@ -41,12 +41,13 @@ class GoldIdxChange(AbstractExperiment):
             predictions = self._llm.generate_batch(
                 prompts, **self._sampling_params
             )
-            scores = self._calc_predictions_scores(predictions, key)
+            metric, scores = self._calc_predictions_scores(predictions, key)
 
             self._add_new_result_entries(
                 prompts=prompts,
                 model_answers=predictions,
                 scores=scores,
+                metric=metric,
                 key=key
             )
 
@@ -73,6 +74,7 @@ class GoldIdxChange(AbstractExperiment):
                     "model_answers": [],
                     # [{"value": 1.0, "metric": "best_subset_em"}]
                     "scores": [],
+                    "metric": "",
                     "num_prompt_tokens": []
                 }
             })

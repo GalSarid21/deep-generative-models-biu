@@ -3,6 +3,36 @@ This repository contains the code for the final project of the `Deep Generative 
 
 The project explores how `State Space Models` (SSMs) handle large-context inputs and compares their performance to `Large Language Models` (LLMs), building upon the findings from the `Lost in the Middle` paper (see full citation at the `References` section).
 
+## Table of Contents:
+
+- [Deep Generative Models – Final Project (BIU, 2025)](#deep-generative-models--final-project-biu-2025)
+  - [Table of contents](#table-of-contents)
+  - [State Space Models](#state-space-models)
+  - [Experiment Description](#experiment-description)
+  - [Evaluation](#evaluation)
+  - [Results](#results)
+  - [References](#references)
+
+## State Space Models
+```
+TODO
+```
+
+## Experiment Description
+```
+TODO
+```
+
+## Evaluation
+```
+TODO
+```
+
+## Results
+```
+TODO
+```
+
 ## References
 
 This project builds upon the findings from the paper `Lost in the Middle: How Language Models Use Long Contexts`. We extend this work by applying similar methodologies to State Space Models (SSMs), investigating how they handle large-context inputs compared to Large Language Models (LLMs).

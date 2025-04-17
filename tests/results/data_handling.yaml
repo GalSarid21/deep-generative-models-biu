@@ -38,26 +38,26 @@ openbook_random_docs:
     original_retrieval_index: null
   # we don't test the non-gold since its shuffled.
 expected_log_msg: |-
-  INFO     root:nq_data.py:166 Downloading NQ Data [num_docs=10]...
-  INFO     root:nq_data.py:245 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
-  INFO     root:nq_data.py:245 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
-  INFO     root:nq_data.py:245 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
-  INFO     root:nq_data.py:198 Downloading NQ Data [gold_idx=29]...
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_4.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_14.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_19.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_9.jsonl.gz
-  INFO     root:nq_data.py:241 Downloading file: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_29.jsonl.gz to: ./qa_data/30_total_documents/nq-open-30_total_documents_gold_at_29.jsonl
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_0.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_24.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_14.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_19.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_0.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_4.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_9.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
-  INFO     root:nq_data.py:230 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
+  INFO     root:nq_data.py:181 Downloading NQ Data [num_docs=10]...
+  INFO     root:nq_data.py:260 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:260 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:260 Skipping existing file [file exists]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
+  INFO     root:nq_data.py:213 Downloading NQ Data [gold_idx=29]...
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_14.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_19.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_9.jsonl.gz
+  INFO     root:nq_data.py:256 Downloading file: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_29.jsonl.gz to: ./qa_data/30_total_documents/nq-open-30_total_documents_gold_at_29.jsonl
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/30_total_documents/nq-open-30_total_documents_gold_at_24.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_14.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_19.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/20_total_documents/nq-open-20_total_documents_gold_at_9.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_0.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_4.jsonl.gz
+  INFO     root:nq_data.py:245 Skipping existing file [file doesn't end with gold_at_29.jsonl.gz postfix]: ./lost-in-the-middle/qa_data/10_total_documents/nq-open-10_total_documents_gold_at_9.jsonl.gz
 gold_idx_data_dict_keys:
   - gold_at_0
   - gold_at_4

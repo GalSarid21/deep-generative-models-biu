@@ -1,4 +1,6 @@
 ## Example of `gold index change` experiment working documents data object:
+
+* openbook / openbook-random:
 ```json
 {
   "gold_at_4": {
@@ -100,35 +102,45 @@
 }
 ```
 
+* closedbook:
+```json
+{
+  "closedbook": {
+    "questions": [
+      "who got the first nobel prize in physics"
+    ],
+    "answers": [
+      [
+        "Wilhelm Conrad R\u00f6ntgen"
+      ]
+    ]
+  }
+}
+```
+
 ## Example of `gold index change` experiment results data object:
 ```json
 {
   "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
-  "experiment_type": "gold-idx-change",
+  "experiment_type": "gold_idx_change",
   "num_documents": 10,
   "prompting_mode": "openbook",
   "execution_date": "2025-04-14 15:22:01",
   "experiments": {
-    "gold_at_0": {
-      "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
-      "scores": [0.0],
-      "num_prompt_tokens": [1446]
-    },
-    "gold_at_4": {
-      "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
-      "scores": [0.0],
-      "num_prompt_tokens": [1446]
-    },
-    "gold_at_9": {
-      "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
-      "scores": [0.0],
-      "num_prompt_tokens": [1446]
+    "closedbook": {
+        "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
+        "scores": [0.0],
+        "metric": "best_subspan_em",
+        "num_prompt_tokens": [1446]
     }
   }
 }
 ```
 
 ## Example of `number of documents change` experiment working documents data object:
+
+* openbook / openbook-random:
+
 ```json
 {
   "10_total_documents": {
@@ -230,11 +242,16 @@
 }
 ```
 
+* closedbook values will look the same as for `gpld index change` experiment results data object
+
 ## Example of `number of documents change` experiment results data object:
+
+* openbook / openbook-random:
+
 ```json
 {
   "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
-  "experiment_type": "num-docs-change",
+  "experiment_type": "num_docs_change",
   "gold_idx": 0,
   "prompting_mode": "openbook",
   "execution_date": "2025-04-14 15:22:01",
@@ -257,3 +274,5 @@
   }
 }
 ```
+
+* closedbook values will look the same as for `gpld index change` experiment results data object

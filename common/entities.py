@@ -8,8 +8,8 @@ T = TypeVar("T")
 
 
 class ExperimentType(StrEnum):
-    GOLD_IDX_CHANGE = "gold-idx-change"
-    NUM_DOCS_CHANGE = "num-docs-change"
+    GOLD_IDX_CHANGE = "gold_idx_change"
+    NUM_DOCS_CHANGE = "num_docs_change"
 
 
 class PromptingMode(StrEnum):

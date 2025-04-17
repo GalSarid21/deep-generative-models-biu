@@ -39,7 +39,8 @@ def vllm_wrapper_mock() -> vLLMWrapperMock:
     return vLLMWrapperMock(
         model=common_consts.SUPPORTED_MODELS[0],
         dtype=common_consts.SUPPORTED_DTYPES[0],
-        num_gpus=common_consts.DEFAULT_NUM_GPUS
+        num_gpus=common_consts.DEFAULT_NUM_GPUS,
+        max_model_len=common_consts.DEFAULT_MAX_MODEL_LEN
     )
 
 

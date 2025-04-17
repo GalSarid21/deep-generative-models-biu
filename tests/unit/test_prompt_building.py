@@ -95,11 +95,7 @@ def test_closedbook_prompt_builder(
         prompting_mode=prompting_mode, tokenizer=hf_tokenizer
     )
 
-    prompt = builder.build(
-        question=questions[0],
-        documents=documents_lists
-    )
-
+    prompt = builder.build(question=questions[0])
     logging.info(f"Test Prompt [{prompting_mode.value}]:\n{prompt}")
     assert prompt.strip() == test_results["closedbook"]
 

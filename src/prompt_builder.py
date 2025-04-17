@@ -2,7 +2,7 @@ from common.entities import Document, PromptingMode
 from common.utils import get_messages_list
 from src.wrappers import HfTokenizer
 
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 
 class PromptBuilder:
@@ -46,14 +46,17 @@ class PromptBuilder:
     def build(
         self,
         question: str,
-        documents: List[Document]
+        documents: Optional[List[Document]] = None
     ) -> str:
 
-        search_results = self._format_documents(documents)
-        user_prompt = self._user_template.format(
-            search_results=search_results,
-            question=question
-        )
+        if self._prompting_mode is PromptingMode.CLOSEDBOOK:
+            user_prompt = self._user_template.format(question=question)
+        else:
+            search_results = self._format_documents(documents)
+            user_prompt = self._user_template.format(
+                search_results=search_results,
+                question=question
+            )
 
         messages = get_messages_list(user=user_prompt, system=self._system)
         prompt = self._tokenizer.apply_chat_template(messages, tokenize=False)

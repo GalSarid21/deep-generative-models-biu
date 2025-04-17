@@ -1,5 +1,5 @@
 from tests.mocks.vllm_wrapper import vLLMWrapperMock
-import common.consts as consts
+import common.consts as common_consts
 
 from typing import Callable, Dict, Any
 import logging
@@ -18,9 +18,10 @@ def test_obj_initiation(
 
     with caplog.at_level(logging.INFO):
         _ = vLLMWrapperMock(
-            model=consts.SUPPORTED_MODELS[0],
-            dtype=consts.SUPPORTED_DTYPES[0],
-            num_gpus=consts.DEFAULT_NUM_GPUS
+            model=common_consts.SUPPORTED_MODELS[0],
+            dtype=common_consts.SUPPORTED_DTYPES[0],
+            num_gpus=common_consts.DEFAULT_NUM_GPUS,
+            max_model_len=common_consts.DEFAULT_MAX_MODEL_LEN
         )
     assert caplog.text.strip() == test_results["obj_initiation"]
 
@@ -38,9 +39,9 @@ def test_generate(
     prompt = test_results["prompt"]
     model_answer = vllm_wrapper_mock.generate(
         prompt=prompt,
-        top_p=consts.DEFAULT_TOP_P,
-        max_tokens=consts.DEFAULT_MAX_TOKENS,
-        temperature=consts.DEFAULT_TEMPERATURE
+        top_p=common_consts.DEFAULT_TOP_P,
+        max_tokens=common_consts.DEFAULT_MAX_TOKENS,
+        temperature=common_consts.DEFAULT_TEMPERATURE
     )
     assert isinstance(model_answer, str)
 
@@ -49,7 +50,7 @@ def test_generate(
     )
 
     resp_prefix = test_results["mock_resp_prefix"]
-    resp = f"{resp_prefix}{prompt[:consts.DEFAULT_MAX_TOKENS]}..."
+    resp = f"{resp_prefix}{prompt[:common_consts.DEFAULT_MAX_TOKENS]}..."
     assert resp == model_answer
 
 
@@ -66,9 +67,9 @@ def test_generate_batch(
     prompts = test_results["batch_prompts"]
     model_answers = vllm_wrapper_mock.generate_batch(
         prompts=prompts,
-        top_p=consts.DEFAULT_TOP_P,
-        max_tokens=consts.DEFAULT_MAX_TOKENS,
-        temperature=consts.DEFAULT_TEMPERATURE
+        top_p=common_consts.DEFAULT_TOP_P,
+        max_tokens=common_consts.DEFAULT_MAX_TOKENS,
+        temperature=common_consts.DEFAULT_TEMPERATURE
     )
     assert isinstance(model_answers, list)
 
@@ -78,5 +79,5 @@ def test_generate_batch(
 
     resp_prefix = test_results["mock_resp_prefix"]
     for prompt, model_answer in zip(prompts, model_answers):
-        resp = f"{resp_prefix}{prompt[:consts.DEFAULT_MAX_TOKENS]}..."
+        resp = f"{resp_prefix}{prompt[:common_consts.DEFAULT_MAX_TOKENS]}..."
         assert resp == model_answer

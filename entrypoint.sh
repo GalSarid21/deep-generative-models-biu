@@ -2,7 +2,7 @@
 
 # relevant args to set default value
 DEFAULTS="
-  experiment gold-idx-change
+  experiment gold_idx_change
   num_docs 10
   model tiiuae/Falcon3-Mamba-7B-Instruct
 "

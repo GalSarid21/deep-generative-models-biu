@@ -6,7 +6,7 @@ from src.metrics import best_subspan_em
 import common.consts as consts
 
 from argparse import Namespace
-from typing import List, Dict, Union, Optional, Any
+from typing import List, Dict, Union, Optional, Tuple, Any
 from xopen import xopen
 from abc import ABC, abstractmethod
 import datetime
@@ -78,6 +78,7 @@ class AbstractExperiment(ABC):
         prompts: List[str],
         model_answers: List[str],
         scores: List[float],
+        metric: str,
         key: str
     ) -> None:
 
@@ -90,6 +91,7 @@ class AbstractExperiment(ABC):
         experiment = self._results["experiments"][key]
         experiment["model_answers"].extend(model_answers)
         experiment["scores"].extend(scores)
+        experiment["metric"] = metric
         experiment["num_prompt_tokens"].extend(num_prompt_tokens_list)
 
     def _create_process_dirs(self, dirs: List[str]) -> None:
@@ -115,13 +117,14 @@ class AbstractExperiment(ABC):
         self,
         predictions: List[str],
         key: str
-    ) -> List[float]:
+    ) -> Tuple[str, List[float]]:
 
         answers_list = self._data[key]["answers"]
-        return [
+        scores = [
             best_subspan_em(prediction=prediction, ground_truths=answers)
             for prediction, answers in zip(predictions, answers_list)
         ]
+        return "best_subspan_em", scores
 
     def _truncate_data(
         self,
@@ -160,14 +163,21 @@ class AbstractExperiment(ABC):
     def _log_experiment_results(self) -> None:
         logging.info(f"Logging test results.")
 
-        experiment_type = self._results["experiment_type"].replace("-", "_")
+        # taking only the model name without HF repo name
+        # for example: tiiuae/Falcon3-Mamba-7B-Instruct --> 
+        # tiiuae/Falcon3-Mamba-7B-Instruct
+        model_short = self._results["model"].split("/")[-1]
+        experiment_type = self._results["experiment_type"]
         num_docs = self._results["num_documents"]
         prompting_mode = self._results["prompting_mode"]
         timestamp = int(datetime.datetime.now(datetime.UTC).timestamp())
-        result_file_name = f"experiment_{experiment_type}_docs_{num_docs}" \
-            + f"_prompting_mode_{prompting_mode}_{timestamp}.json"
-        result_file_path = f"{consts.RESULTS_DIR}/{result_file_name}"
 
+        result_file_dir = f"{consts.RESULTS_DIR}/{model_short}/" \
+            + f"{experiment_type}_experiment/{num_docs}_docs/" \
+            + f"{prompting_mode}_prompting_mode"
+
+        os.makedirs(result_file_dir, exist_ok=True)
+        result_file_path = f"{result_file_dir}/{timestamp}.json"
         with xopen(result_file_path, "w") as f:
             f.write(json.dumps(self._results, indent=2) + "\n")
 

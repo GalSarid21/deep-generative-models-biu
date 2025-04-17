@@ -20,29 +20,44 @@ def read_folder_files(
 ) -> Dict[str, Dict[str, Union[List[str], List[List[Document]]]]]:
     """
     Reads all jsonl files from input folder and creats a file postfix based
-    data object (used for gold-idx-change experiment).
+    data object (used for gold_idx_change experiment).
     """
     folder_path = Path(folder_path)
     logging.info(f"Creating documents from {folder_path} folder...")
 
     jsonl_files = list(folder_path.glob("*.jsonl"))
     files_data = {}
-    for jsonl in jsonl_files:
-        questions, answers, documents = read_file(
-            file_path=jsonl, prompting_mode=prompting_mode
+
+    if prompting_mode is PromptingMode.CLOSEDBOOK:
+        questions, answers, _ = read_file(
+            # we need only one file since we don't use documents and this
+            # is what changes between files
+            file_path=jsonl_files[0], prompting_mode=prompting_mode
         )
-        # stem should look like the following:
-        # nq-open-10_total_documents_gold_at_0
-        # hence - split("_documents_")[-1] - will
-        # create a short name such as "gold_at_0"
-        file_short_name = jsonl.stem.split("_documents_")[-1]
         files_data.update({
-            file_short_name: {
+            prompting_mode.value: {
                 "questions": questions,
-                "answers": answers,
-                "documents": documents
+                "answers": answers
             }
         })
+
+    else:
+        for jsonl in jsonl_files:
+            questions, answers, documents = read_file(
+                file_path=jsonl, prompting_mode=prompting_mode
+            )
+            # stem should look like the following:
+            # nq-open-10_total_documents_gold_at_0
+            # hence - split("_documents_")[-1] - will
+            # create a short name such as "gold_at_0"
+            file_short_name = jsonl.stem.split("_documents_")[-1]
+            files_data.update({
+                file_short_name: {
+                    "questions": questions,
+                    "answers": answers,
+                    "documents": documents
+                }
+            })
 
     return files_data
 
@@ -54,7 +69,7 @@ def read_folders_file(
 ) -> Dict[str, Dict[str, Union[List[str], List[List[Document]]]]]:
     """
     Reads all a jsonl file that ends with `gold_idx` postfix from input folder
-    and creats a file prefix based data object (used for num-docs-change
+    and creats a file prefix based data object (used for num_docs_change
     experiment).
     """
     suffix = f"gold_at_{gold_idx}.jsonl"

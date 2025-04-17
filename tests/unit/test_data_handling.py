@@ -222,7 +222,7 @@ def test_gold_idx_change_data_dict_creation(
     data_test_subset_json = json.dumps(
         data_test_subset, default=nq_data.serialize, indent=2
     )
-    logging.info(f"Openbook Files Dictionary [gold-idx-change]:\n{data_test_subset_json}")
+    logging.info(f"Openbook Files Dictionary [gold_idx_change]:\n{data_test_subset_json}")
 
     data_test_subset_json_dict = json.loads(data_test_subset_json)
     assert data_test_subset_json_dict == test_results["gold_idx_data_dict_subset"]
@@ -265,7 +265,7 @@ def test_num_docs_change_data_dict_creation(
         data_test_subset, default=nq_data.serialize, indent=2
     )
     logging.info(
-        f"Openbook Files Dictionary [num-docs-change]:\n{data_test_subset_json}"
+        f"Openbook Files Dictionary [num_docs_change]:\n{data_test_subset_json}"
     )
 
     data_test_subset_json_dict = json.loads(data_test_subset_json)

@@ -28,6 +28,7 @@ def get_test_cli_args(
         temperature=consts.DEFAULT_TEMPERATURE,
         top_p=consts.DEFAULT_TOP_P,
         max_tokens=consts.DEFAULT_MAX_TOKENS,
+        max_model_len=consts.DEFAULT_MAX_MODEL_LEN,
         results_dir=None,
         test_mode=True
     )

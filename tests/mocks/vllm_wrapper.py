@@ -11,7 +11,7 @@ class vLLMWrapperMock:
         model: str,
         dtype: str,
         num_gpus: int,
-        load_format: Optional[str] = "pt",
+        max_model_len: int,
         gpu_memory_utilization: Optional[float] = 0.9
     ) -> None:
         # log input parameters

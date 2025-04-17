@@ -12,7 +12,7 @@ class vLLMWrapper:
         model: str,
         dtype: str,
         num_gpus: int,
-        max_model_len: Optional[int] = 32_000,
+        max_model_len: int,
         gpu_memory_utilization: Optional[float] = 0.9
     ) -> None:
 

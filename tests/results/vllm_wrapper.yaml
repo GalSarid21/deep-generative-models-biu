@@ -4,7 +4,7 @@ obj_initiation: |-
     "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
     "dtype": "bfloat16",
     "num_gpus": 1,
-    "load_format": "pt",
+    "max_model_len": 10000,
     "gpu_memory_utilization": 0.9
   }
 prompt: |-

@@ -65,7 +65,8 @@ class AbstractExperiment(ABC):
         vllm_payload = {
             "model": args.model,
             "dtype": args.dtype,
-            "num_gpus": args.num_gpus
+            "num_gpus": args.num_gpus,
+            "max_model_len": args.max_model_len
         }
 
         if args.test_mode is True:
@@ -107,10 +108,16 @@ class AbstractExperiment(ABC):
 
     def _get_prompts_by_data_key(self, key: str) -> List[str]:
         questions = self._data[key]["questions"]
-        documents_list = self._data[key]["documents"]
+
+        if self._prompting_mode is not PromptingMode.CLOSEDBOOK:
+            documents_list = self._data[key]["documents"]
+            return [
+                self._prompt_builder.build(question, documents)
+                for question, documents in zip(questions, documents_list)
+            ]
         return [
-            self._prompt_builder.build(question, documents)
-            for question, documents in zip(questions, documents_list)
+            self._prompt_builder.build(question)
+            for question in questions
         ]
 
     def _calc_predictions_scores(

@@ -80,7 +80,8 @@ def read_cli_env_args() -> Namespace:
         "--num_docs",
         help="number of documents to use in the experiment [when relevant].",
         type=int,
-        choices=consts.SUPPORTED_NUM_DOCS
+        choices=consts.SUPPORTED_NUM_DOCS,
+        default=consts.SUPPORTED_NUM_DOCS[0]
     )
 
     # relevant for num_docs_change experiment
@@ -88,7 +89,8 @@ def read_cli_env_args() -> Namespace:
         "--golden_idx",
         help="index of golden answer index to use in the experiment [when relevant].",
         type=int,
-        choices=consts.SUPPORTED_GOLD_IDXS
+        choices=consts.SUPPORTED_GOLD_IDXS,
+        default=consts.SUPPORTED_GOLD_IDXS[0]
     )
 
     parser.add_argument(
@@ -102,6 +104,13 @@ def read_cli_env_args() -> Namespace:
         "--results_dir",
         help="external directory to store the experiment results.",
         type=str
+    )
+
+    parser.add_argument(
+        "--max_model_len",
+        help="maximum tokens the model can get as input.",
+        type=int,
+        default=consts.DEFAULT_MAX_MODEL_LEN
     )
 
     args = parser.parse_args()

@@ -174,14 +174,15 @@ class AbstractExperiment(ABC):
         # for example: tiiuae/Falcon3-Mamba-7B-Instruct --> 
         # tiiuae/Falcon3-Mamba-7B-Instruct
         model_short = self._results["model"].split("/")[-1]
-        experiment_type = self._results["experiment_type"]
+        experiment_type = self._results["experiment_type"].replace("-", "_")
         num_docs = self._results["num_documents"]
-        prompting_mode = self._results["prompting_mode"]
+        prompting_mode = self._results["prompting_mode"].replace("-", "_")
         timestamp = int(datetime.datetime.now(datetime.UTC).timestamp())
 
         result_file_dir = f"{consts.RESULTS_DIR}/{model_short}/" \
-            + f"{experiment_type}_experiment/{num_docs}_docs/" \
-            + f"{prompting_mode}_prompting_mode"
+            + f"{experiment_type}_experiment/" \
+            + f"{prompting_mode}_prompting_mode/" \
+            + f"{num_docs}_docs"
 
         os.makedirs(result_file_dir, exist_ok=True)
         result_file_path = f"{result_file_dir}/{timestamp}.json"

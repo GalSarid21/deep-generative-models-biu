@@ -15,7 +15,7 @@ class ExperimentType(StrEnum):
 class PromptingMode(StrEnum):
     CLOSEDBOOK = "closedbook"
     OPENBOOK = "openbook"
-    OPENBOOK_RANDOM = "openbook-random"
+    OPENBOOK_RANDOM = "openbook_random"
 
 
 # Adapted from the nelson-liu/lost-in-the-middle repository

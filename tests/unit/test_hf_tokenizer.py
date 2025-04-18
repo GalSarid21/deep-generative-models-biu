@@ -1,6 +1,7 @@
 from src.wrappers import HfTokenizer
 from common.utils import get_messages_list
 import common.consts as common_consts
+import tests.consts as test_consts
 
 from typing import Dict, Any
 import pytest
@@ -13,7 +14,7 @@ import pytest
 )
 def test_tokenizer_initialization(test_results: Dict[str, Any]) -> None:
     tokenizer_initialization = test_results["tokenizer_initialization"]
-    for model in common_consts.SUPPORTED_MODELS:
+    for model in test_consts.TEST_MODELS:
         tokenizer = HfTokenizer(model)
         assert tokenizer.eos_token_id == tokenizer_initialization[model]["eos_token_id"]
         assert tokenizer.eos_token == tokenizer_initialization[model]["eos_token"]
@@ -26,7 +27,7 @@ def test_tokenizer_initialization(test_results: Dict[str, Any]) -> None:
 )
 @pytest.mark.parametrize(
     "hf_tokenizer",
-    [common_consts.SUPPORTED_MODELS[0]],
+    [common_consts.DEFAULT_MODEL],
     indirect=True
 )
 def test_apply_chat_template(
@@ -55,7 +56,7 @@ def test_apply_chat_template(
 )
 @pytest.mark.parametrize(
     "hf_tokenizer",
-    [common_consts.SUPPORTED_MODELS[0]],
+    [common_consts.DEFAULT_MODEL],
     indirect=True
 )
 def test_tokenize(
@@ -78,7 +79,7 @@ def test_tokenize(
 )
 @pytest.mark.parametrize(
     "hf_tokenizer",
-    [common_consts.SUPPORTED_MODELS[0]],
+    [common_consts.DEFAULT_MODEL],
     indirect=True
 )
 def test_count_tokens(

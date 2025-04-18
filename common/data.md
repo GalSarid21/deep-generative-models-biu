@@ -1,6 +1,6 @@
 ## Example of `gold index change` experiment working documents data object:
 
-* openbook / openbook-random:
+* openbook / openbook_random:
 ```json
 {
   "gold_at_4": {
@@ -121,7 +121,7 @@
 
 ## Example of `gold index change` experiment results data object:
 
-* openbook / openbook-random:
+* openbook / openbook_random:
 
 ```json
 {
@@ -175,7 +175,7 @@
 
 ## Example of `number of documents change` experiment working documents data object:
 
-* openbook / openbook-random:
+* openbook / openbook_random:
 
 ```json
 {
@@ -282,7 +282,7 @@
 
 ## Example of `number of documents change` experiment results data object:
 
-* openbook / openbook-random:
+* openbook / openbook_random:
 
 ```json
 {

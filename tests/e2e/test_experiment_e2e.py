@@ -2,7 +2,7 @@ from common.configs.log_config import configure_log
 from common.entities import ExperimentType, PromptingMode
 from experiments import GoldIdxChange, NumDocsChange, AbstractExperiment
 import experiments.runner as experiment_runner
-import common.consts as consts
+import common.consts as common_consts
 
 from argparse import Namespace
 from typing import Optional
@@ -13,7 +13,7 @@ import json
 def test_gold_idx_experiment() -> None:
     args = _get_test_cli_args(
         experiment=ExperimentType.GOLD_IDX_CHANGE.value,
-        num_docs=consts.SUPPORTED_NUM_DOCS[0]
+        num_docs=common_consts.SUPPORTED_NUM_DOCS[0]
     )
     _run_e2e_test(args=args, running_cls=GoldIdxChange)
 
@@ -21,7 +21,7 @@ def test_gold_idx_experiment() -> None:
 def test_num_docs_experiment() -> None:
     args = _get_test_cli_args(
         experiment=ExperimentType.NUM_DOCS_CHANGE.value,
-        gold_idx=consts.SUPPORTED_GOLD_IDXS[0]
+        gold_idx=common_consts.SUPPORTED_GOLD_IDXS[0]
     )
     _run_e2e_test(args=args, running_cls=NumDocsChange)
 
@@ -47,13 +47,13 @@ def _get_test_cli_args(
         prompting_mode=PromptingMode.OPENBOOK,
         num_docs=num_docs,
         gold_idx=gold_idx,
-        model=consts.SUPPORTED_MODELS[0],
-        dtype=consts.SUPPORTED_DTYPES[0],
-        num_gpus=consts.DEFAULT_NUM_GPUS,
-        temperature=consts.DEFAULT_TEMPERATURE,
-        top_p=consts.DEFAULT_TOP_P,
-        max_tokens=consts.DEFAULT_MAX_TOKENS,
-        max_model_len=consts.DEFAULT_MAX_MODEL_LEN,
+        model=common_consts.DEFAULT_MODEL,
+        dtype=common_consts.SUPPORTED_DTYPES[0],
+        num_gpus=common_consts.DEFAULT_NUM_GPUS,
+        temperature=common_consts.DEFAULT_TEMPERATURE,
+        top_p=common_consts.DEFAULT_TOP_P,
+        max_tokens=common_consts.DEFAULT_MAX_TOKENS,
+        max_model_len=common_consts.DEFAULT_MAX_MODEL_LEN,
         results_dir=None,
         test_mode=True
     )

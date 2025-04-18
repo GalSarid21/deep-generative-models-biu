@@ -27,8 +27,7 @@ def read_cli_env_args() -> Namespace:
         "--model",
         help="HF model repo to use in experiment.",
         type=str,
-        choices=consts.SUPPORTED_MODELS,
-        default=consts.SUPPORTED_MODELS[0] # "tiiuae/Falcon3-Mamba-7B-Instruct"
+        default=consts.DEFAULT_MODEL # "tiiuae/Falcon3-Mamba-7B-Instruct"
     )
 
     parser.add_argument(

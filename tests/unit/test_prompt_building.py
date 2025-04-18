@@ -18,7 +18,7 @@ import pytest
 )
 @pytest.mark.parametrize(
     "hf_tokenizer",
-    [common_consts.SUPPORTED_MODELS[0]],
+    [common_consts.DEFAULT_MODEL],
     indirect=True
 )
 def test_openbook_prompt_builder(
@@ -41,7 +41,7 @@ def test_openbook_prompt_builder(
 )
 @pytest.mark.parametrize(
     "hf_tokenizer",
-    [common_consts.SUPPORTED_MODELS[0]],
+    [common_consts.DEFAULT_MODEL],
     indirect=True
 )
 def test_openboom_random_prompt_builder(
@@ -73,7 +73,7 @@ def test_openboom_random_prompt_builder(
 )
 @pytest.mark.parametrize(
     "hf_tokenizer",
-    [common_consts.SUPPORTED_MODELS[0]],
+    [common_consts.DEFAULT_MODEL],
     indirect=True
 )
 def test_closedbook_prompt_builder(

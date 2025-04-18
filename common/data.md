@@ -288,7 +288,7 @@
 {
   "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
   "experiment_type": "num_documents_change",
-  "gold_idx": 0,
+  "gold_index": 0,
   "prompting_mode": "openbook",
   "execution_date": "2025-04-14 15:22:01",
   "experiments": {

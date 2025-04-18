@@ -6,10 +6,9 @@ from src.metrics import best_subspan_em
 import common.consts as consts
 
 from argparse import Namespace
+from datetime import datetime, UTC
 from typing import List, Dict, Union, Optional, Tuple, Any
-from xopen import xopen
-from abc import ABC, abstractmethod
-import datetime
+from abc import ABC
 import logging
 import torch
 import json
@@ -18,10 +17,6 @@ import os
 
 class AbstractExperiment(ABC):
     _TYPE = None
-
-    @abstractmethod
-    def run(self) -> None:
-        pass
 
     def __init__(self, args: Namespace) -> None:
         if torch.cuda.is_available():
@@ -56,6 +51,27 @@ class AbstractExperiment(ABC):
     @classmethod
     def get_type(cls) -> ExperimentType:
         return cls._TYPE
+
+    def run(self) -> None:
+        logging.info(f"Running a {self._TYPE.value} experiment...")
+        for key in self._data.keys():
+            logging.info(f"Starting process '{key}'...")
+
+            prompts = self._get_prompts_by_data_key(key)
+            predictions = self._llm.generate_batch(
+                prompts, **self._sampling_params
+            )
+            metric, scores = self._calc_predictions_scores(predictions, key)
+
+            self._add_new_result_entries(
+                prompts=prompts,
+                model_answers=predictions,
+                scores=scores,
+                metric=metric,
+                key=key
+            )
+
+        self._log_experiment_results()
 
     def _load_llm(
         self,
@@ -167,26 +183,32 @@ class AbstractExperiment(ABC):
         if in_place is False:
             return target
 
-    def _log_experiment_results(self) -> None:
-        logging.info(f"Logging test results.")
+    def _get_empty_results_dict(self, args: Namespace) -> None:
+        results = {
+            "model": args.model,
+            "experiment_type": self._TYPE.value,
+            "prompting_mode": self._prompting_mode.value,
+            "execution_date": datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S")
+        }
 
-        # taking only the model name without HF repo name
-        # for example: tiiuae/Falcon3-Mamba-7B-Instruct --> 
-        # tiiuae/Falcon3-Mamba-7B-Instruct
-        model_short = self._results["model"].split("/")[-1]
-        experiment_type = self._results["experiment_type"].replace("-", "_")
-        num_docs = self._results["num_documents"]
-        prompting_mode = self._results["prompting_mode"].replace("-", "_")
-        timestamp = int(datetime.datetime.now(datetime.UTC).timestamp())
+        if self._TYPE is ExperimentType.GOLD_IDX_CHANGE:
+            results.update({"num_documents": args.num_docs})
+        elif self._TYPE is ExperimentType.NUM_DOCS_CHANGE:
+            results.update({"gold_index": args.gold_idx})
+        else:
+            raise ValueError("Unrecognized ExperimentType")
 
-        result_file_dir = f"{consts.RESULTS_DIR}/{model_short}/" \
-            + f"{experiment_type}_experiment/" \
-            + f"{prompting_mode}_prompting_mode/" \
-            + f"{num_docs}_docs"
+        experiments = {}
+        for key in self._data.keys():
+            experiments.update({
+                key: {
+                    "model_answers": [],
+                    # [{"value": 1.0, "metric": "best_subset_em"}]
+                    "scores": [],
+                    "metric": "",
+                    "num_prompt_tokens": []
+                }
+            })
 
-        os.makedirs(result_file_dir, exist_ok=True)
-        result_file_path = f"{result_file_dir}/{timestamp}.json"
-        with xopen(result_file_path, "w") as f:
-            f.write(json.dumps(self._results, indent=2) + "\n")
-
-        logging.info(f"Results saved to {result_file_path}")
+        results.update({"experiments": experiments})
+        return results

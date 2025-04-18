@@ -3,7 +3,6 @@ from common.entities import Document, PromptingMode
 from pathlib import Path
 from typing import List, Tuple, Dict, Union, Optional, Any
 from random import shuffle
-from xopen import xopen
 from copy import deepcopy
 from tqdm import tqdm
 
@@ -14,7 +13,7 @@ import json
 import os
 
 
-def read_folder_files(
+def read_files_by_num_docs(
     folder_path: str,
     prompting_mode: PromptingMode
 ) -> Dict[str, Dict[str, Union[List[str], List[List[Document]]]]]:
@@ -62,13 +61,13 @@ def read_folder_files(
     return files_data
 
 
-def read_folders_file(
+def read_files_by_gold_idx(
     folder_paths: List[str],
     prompting_mode: PromptingMode,
     gold_idx: int
 ) -> Dict[str, Dict[str, Union[List[str], List[List[Document]]]]]:
     """
-    Reads all a jsonl file that ends with `gold_idx` postfix from input folder
+    Reads a jsonl file that ends with `gold_idx` postfix from input folder
     and creats a file prefix based data object (used for num_docs_change
     experiment).
     """
@@ -112,7 +111,7 @@ def read_file(
     all_documents = []
     all_answers = []
 
-    with xopen(file_path) as fin:
+    with open(file_path) as fin:
         for line in tqdm(fin):
             input_example = json.loads(line)
             # get example's question
@@ -191,7 +190,7 @@ def download_files_by_num_docs(
     dst_folder = f"{dst_dir}/{data_folder}"
     os.makedirs(dst_folder, exist_ok=True)
 
-    _download_folder_files(dst_folder, src_folder)
+    download_folder_files(dst_folder, src_folder)
     return dst_folder
 
 
@@ -222,13 +221,13 @@ def download_files_by_gold_idx(
         dst_folder = f"{dst_dir}/{data_folder}"
         os.makedirs(dst_folder, exist_ok=True)
         postfix = f"gold_at_{gold_idx}.jsonl.gz"
-        _download_folder_files(dst_folder, src_folder, postfix)
+        download_folder_files(dst_folder, src_folder, postfix)
         dst_folders.append(dst_folder)
 
     return dst_folders
 
 
-def _download_folder_files(
+def download_folder_files(
     dst_folder: str,
     src_folder: str,
     postfix: Optional[str] = None

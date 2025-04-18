@@ -4,8 +4,10 @@ from argparse import Namespace
 import common.nq_data as nq_data
 import common.consts as consts
 
-from datetime import datetime
+from datetime import datetime, UTC
 import logging
+import json
+import os
 
 
 class GoldIdxChange(AbstractExperiment):
@@ -20,7 +22,7 @@ class GoldIdxChange(AbstractExperiment):
             num_docs=args.num_docs
         )
 
-        self._data = nq_data.read_folder_files(
+        self._data = nq_data.read_files_by_num_docs(
             folder_path=created_folder,
             prompting_mode=self._prompting_mode
         )
@@ -32,51 +34,26 @@ class GoldIdxChange(AbstractExperiment):
 
         self._results = self._get_empty_results_dict(args)
 
-    def run(self) -> None:
-        logging.info("Running a gold index change experiment...")
-        for key in self._data.keys():
-            logging.info(f"Starting process '{key}'...")
+    def _log_experiment_results(self) -> None:
+        logging.info(f"Logging test results.")
 
-            prompts = self._get_prompts_by_data_key(key)
-            predictions = self._llm.generate_batch(
-                prompts, **self._sampling_params
-            )
-            metric, scores = self._calc_predictions_scores(predictions, key)
+        # taking only the model name without HF repo name
+        # for example: tiiuae/Falcon3-Mamba-7B-Instruct --> 
+        # tiiuae/Falcon3-Mamba-7B-Instruct
+        model_short = self._results["model"].split("/")[-1]
+        experiment_type = self._results["experiment_type"].replace("-", "_")
+        num_docs = self._results["num_documents"]
+        prompting_mode = self._results["prompting_mode"].replace("-", "_")
+        timestamp = int(datetime.now(UTC).timestamp())
 
-            self._add_new_result_entries(
-                prompts=prompts,
-                model_answers=predictions,
-                scores=scores,
-                metric=metric,
-                key=key
-            )
+        result_file_dir = f"{consts.RESULTS_DIR}/{model_short}/" \
+            + f"{experiment_type}_experiment/" \
+            + f"{prompting_mode}_prompting_mode/" \
+            + f"{num_docs}_docs"
 
-        self._log_experiment_results()
+        os.makedirs(result_file_dir, exist_ok=True)
+        result_file_path = f"{result_file_dir}/{timestamp}.json"
+        with open(result_file_path, "w") as f:
+            f.write(json.dumps(self._results, indent=2) + "\n")
 
-    def _get_empty_results_dict(
-        self,
-        args: Namespace
-    ) -> None:
-
-        results = {
-            "model": args.model,
-            "experiment_type": self._TYPE.value,
-            "num_documents": args.num_docs,
-            "prompting_mode": self._prompting_mode.value,
-            "execution_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "experiments": {}
-        }
-
-        experiments = results["experiments"]
-        for key in self._data.keys():
-            experiments.update({
-                key: {
-                    "model_answers": [],
-                    # [{"value": 1.0, "metric": "best_subset_em"}]
-                    "scores": [],
-                    "metric": "",
-                    "num_prompt_tokens": []
-                }
-            })
-
-        return results
+        logging.info(f"Results saved to {result_file_path}")

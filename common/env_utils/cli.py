@@ -86,7 +86,7 @@ def read_cli_env_args() -> Namespace:
 
     # relevant for num_docs_change experiment
     parser.add_argument(
-        "--golden_idx",
+        "--gold_idx",
         help="index of golden answer index to use in the experiment [when relevant].",
         type=int,
         choices=consts.SUPPORTED_GOLD_IDXS,

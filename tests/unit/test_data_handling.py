@@ -200,7 +200,9 @@ def test_gold_idx_change_data_dict_creation(
 ) -> None:
 
     download_nq_files_if_needed()
-    data = nq_data.read_folder_files(
+    # gold index experiment needs all of the json files from
+    # a specific folder, by the number of documents
+    data = nq_data.read_files_by_num_docs(
         folder_path=test_consts.DOCUMENTS_FOLDER_PATH,
         prompting_mode=PromptingMode.OPENBOOK
     )
@@ -236,8 +238,9 @@ def test_gold_idx_change_data_dict_creation(
 def test_num_docs_change_data_dict_creation(
     test_results: Dict[str, Any]
 ) -> None:
-
-    data = nq_data.read_folders_file(
+    # num docs experiment needs the relevant json file from
+    # each of the folders, by the gold index
+    data = nq_data.read_files_by_gold_idx(
         folder_paths=[
             test_consts.DOCUMENTS_FOLDER_TEMPLATE.format(
                 num_docs=num_docs

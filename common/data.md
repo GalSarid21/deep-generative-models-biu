@@ -103,6 +103,7 @@
 ```
 
 * closedbook:
+
 ```json
 {
   "closedbook": {
@@ -119,6 +120,41 @@
 ```
 
 ## Example of `gold index change` experiment results data object:
+
+* openbook / openbook-random:
+
+```json
+{
+  "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
+  "experiment_type": "gold_index_change",
+  "num_documents": 10,
+  "prompting_mode": "openbook",
+  "execution_date": "2025-04-14 15:22:01",
+  "experiments": {
+    "gold_at_0": {
+      "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
+      "scores": [0.0],
+      "metric": "best_subspan_em",
+      "num_prompt_tokens": [1446]
+    },
+    "gold_at_4": {
+      "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
+      "scores": [0.0],
+      "metric": "best_subspan_em",
+      "num_prompt_tokens": [1446]
+    },
+    "gold_at_9": {
+      "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
+      "scores": [0.0],
+      "metric": "best_subspan_em",
+      "num_prompt_tokens": [1446]
+    }
+  }
+}
+```
+
+* closedbook:
+
 ```json
 {
   "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
@@ -242,7 +278,7 @@
 }
 ```
 
-* closedbook values will look the same as for `gpld index change` experiment results data object
+* closedbook values will look the same as for `gold index change` experiment results data object
 
 ## Example of `number of documents change` experiment results data object:
 
@@ -251,24 +287,27 @@
 ```json
 {
   "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
-  "experiment_type": "num_docs_change",
-  "gold_idx": 0,
+  "experiment_type": "num_documents_change",
+  "gold_index": 0,
   "prompting_mode": "openbook",
   "execution_date": "2025-04-14 15:22:01",
   "experiments": {
     "10_total_documents": {
       "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
       "scores": [0.0],
+      "metric": "best_subspan_em",
       "num_prompt_tokens": [1446]
     },
     "20_total_documents": {
       "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
       "scores": [0.0],
+      "metric": "best_subspan_em",
       "num_prompt_tokens": [1446]
     },
     "30_total_documents": {
       "model_answers": ["The next Deadpool movie is scheduled to be released on December 21, 2019."],
       "scores": [0.0],
+      "metric": "best_subspan_em",
       "num_prompt_tokens": [1446]
     }
   }

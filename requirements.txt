@@ -115,6 +115,5 @@ uvloop==0.21.0
 vllm==0.8.4
 watchfiles==1.0.5
 websockets==15.0.1
-xopen==2.0.2
 yarl==1.19.0
 zipp==3.21.0

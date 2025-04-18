@@ -1,6 +1,6 @@
 from common.configs.log_config import configure_log
 from common.entities import ExperimentType, PromptingMode
-from experiments import GoldIdxChange
+from experiments import GoldIdxChange, NumDocsChange, AbstractExperiment
 import experiments.runner as experiment_runner
 import common.consts as consts
 
@@ -10,7 +10,32 @@ import logging
 import json
 
 
-def get_test_cli_args(
+def test_gold_idx_experiment() -> None:
+    args = _get_test_cli_args(
+        experiment=ExperimentType.GOLD_IDX_CHANGE.value,
+        num_docs=consts.SUPPORTED_NUM_DOCS[0]
+    )
+    _run_e2e_test(args=args, running_cls=GoldIdxChange)
+
+
+def test_num_docs_experiment() -> None:
+    args = _get_test_cli_args(
+        experiment=ExperimentType.NUM_DOCS_CHANGE.value,
+        gold_idx=consts.SUPPORTED_GOLD_IDXS[0]
+    )
+    _run_e2e_test(args=args, running_cls=NumDocsChange)
+
+
+def _run_e2e_test(args: Namespace, running_cls: AbstractExperiment) -> None:
+    configure_log()
+    logging.info(
+        "Test environment Variables:\n" +
+        json.dumps(vars(args), indent=2)
+    )
+    experiment_runner.run(args, running_cls)
+
+
+def _get_test_cli_args(
     experiment: str,
     num_docs: Optional[int] = None,
     gold_idx: Optional[int] = None
@@ -32,18 +57,3 @@ def get_test_cli_args(
         results_dir=None,
         test_mode=True
     )
-
-
-def test_gold_idx_experiment() -> None:
-    configure_log()
-    args = get_test_cli_args(
-        experiment=ExperimentType.GOLD_IDX_CHANGE.value,
-        num_docs=consts.SUPPORTED_NUM_DOCS[0]
-    )
-
-    logging.info(
-        "Test environment Variables:\n" +
-        json.dumps(vars(args), indent=2)
-    )
-
-    experiment_runner.run(args=args, running_cls=GoldIdxChange)

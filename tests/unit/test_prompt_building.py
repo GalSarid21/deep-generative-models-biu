@@ -41,6 +41,29 @@ def test_openbook_prompt_builder(
 )
 @pytest.mark.parametrize(
     "hf_tokenizer",
+    [test_consts.NON_CHAT_TEST_MODEL],
+    indirect=True
+)
+def test_openbook_prompt_builder(
+    test_results: Dict[str, Any],
+    hf_tokenizer: HfTokenizer
+) -> None:
+
+    prompt = _get_test_prompt_with_documents(
+        hf_tokenizer=hf_tokenizer,
+        prompting_mode=PromptingMode.OPENBOOK,
+        test_idx=0
+    )
+    assert prompt.strip() == test_results["openbook_non_chat"]
+
+
+@pytest.mark.parametrize(
+    "test_results",
+    ["./tests/results/prompt_building.yaml"],
+    indirect=True
+)
+@pytest.mark.parametrize(
+    "hf_tokenizer",
     [common_consts.DEFAULT_MODEL],
     indirect=True
 )

@@ -58,6 +58,10 @@ class PromptBuilder:
                 question=question
             )
 
+        if not self._tokenizer.is_chat_model:
+            prompt = f"{self._system}\n\n{user_prompt}"
+            return prompt
+
         messages = get_messages_list(user=user_prompt, system=self._system)
         prompt = self._tokenizer.apply_chat_template(messages, tokenize=False)
         return prompt

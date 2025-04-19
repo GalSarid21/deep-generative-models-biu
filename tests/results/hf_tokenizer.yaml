@@ -2,9 +2,15 @@ tokenizer_initialization:
     "tiiuae/Falcon3-Mamba-7B-Instruct":
         eos_token_id: 11
         eos_token: "<|end_of_text|>"
+        is_chat_model: True
+    "tiiuae/Falcon3-Mamba-7B-Base":
+        eos_token_id: 11
+        eos_token: "<|end_of_text|>"
+        is_chat_model: False
     "meta-llama/Llama-3.1-8B-Instruct":
         eos_token_id: 128009
         eos_token: "<|eot_id|>"
+        is_chat_model: True
 prompt: |-
   Write a high-quality answer for the given question using only the provided search results (some of which might be irrelevant). Be concise and include only the essential information. The search results are ordered randomly.
 

@@ -9,6 +9,7 @@ class HfTokenizer:
     def __init__(self, model: str) -> None:
         self._model = model
         self._tokenizer = AutoTokenizer.from_pretrained(model)
+        self._is_chat_model = self._tokenizer.chat_template is not None
 
     @property
     def model(self) -> str:
@@ -21,6 +22,11 @@ class HfTokenizer:
     @property
     def eos_token_id(self) -> int:
         return self._tokenizer.eos_token_id
+
+    @property
+    def is_chat_model(self) -> bool:
+        return self._is_chat_model
+
 
     def tokenize(
         self,

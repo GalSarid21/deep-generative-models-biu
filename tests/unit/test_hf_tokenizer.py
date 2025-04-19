@@ -16,6 +16,7 @@ def test_tokenizer_initialization(test_results: Dict[str, Any]) -> None:
     tokenizer_initialization = test_results["tokenizer_initialization"]
     for model in test_consts.TEST_MODELS:
         tokenizer = HfTokenizer(model)
+        assert tokenizer.is_chat_model == tokenizer_initialization[model]["is_chat_model"]
         assert tokenizer.eos_token_id == tokenizer_initialization[model]["eos_token_id"]
         assert tokenizer.eos_token == tokenizer_initialization[model]["eos_token"]
 

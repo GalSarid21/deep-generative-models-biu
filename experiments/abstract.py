@@ -82,7 +82,8 @@ class AbstractExperiment(ABC):
             "model": args.model,
             "dtype": args.dtype,
             "num_gpus": args.num_gpus,
-            "max_model_len": args.max_model_len
+            "max_model_len": args.max_model_len,
+            "gpu_memory_utilization": args.gpu_memory_utilization
         }
 
         if args.test_mode is True:

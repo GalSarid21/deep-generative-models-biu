@@ -112,6 +112,13 @@ def read_cli_env_args() -> Namespace:
         default=consts.DEFAULT_MAX_MODEL_LEN
     )
 
+    parser.add_argument(
+        "--gpu_memory_utilization",
+        help="maximum GPU percentage can be used by the model.",
+        type=float,
+        default=consts.DEFAULT_MAX_GPU_UTIL
+    )
+
     args = parser.parse_args()
     logging.info(
         "Environment Variables:\n" +

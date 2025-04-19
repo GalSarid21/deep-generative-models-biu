@@ -40,7 +40,8 @@ def vllm_wrapper_mock() -> vLLMWrapperMock:
         model=common_consts.DEFAULT_MODEL,
         dtype=common_consts.SUPPORTED_DTYPES[0],
         num_gpus=common_consts.DEFAULT_NUM_GPUS,
-        max_model_len=common_consts.DEFAULT_MAX_MODEL_LEN
+        max_model_len=common_consts.DEFAULT_MAX_MODEL_LEN,
+        gpu_memory_utilization=common_consts.DEFAULT_MAX_GPU_UTIL
     )
 
 

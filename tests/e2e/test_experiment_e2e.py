@@ -65,6 +65,7 @@ def _get_test_cli_args(
         top_p=common_consts.DEFAULT_TOP_P,
         max_tokens=common_consts.DEFAULT_MAX_TOKENS,
         max_model_len=common_consts.DEFAULT_MAX_MODEL_LEN,
+        gpu_memory_utilization=common_consts.DEFAULT_MAX_GPU_UTIL,
         results_dir=None,
         test_mode=True
     )

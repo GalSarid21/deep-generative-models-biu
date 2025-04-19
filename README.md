@@ -39,8 +39,8 @@ The `lost-in-the-middle` team included the exact dataset used during experiments
   * The `answers` field used in the original paper corresponds to the `short answers` from the `nq_annotated_gold` field.
 
 > **Prompt example from the original paper**:
-![prompt](assets/prompt.png)
 
+![prompt](assets/prompt.png)
 
 ## Experiment Description
 

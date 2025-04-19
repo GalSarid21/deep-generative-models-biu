@@ -3,6 +3,7 @@ from common.entities import ExperimentType, PromptingMode
 from experiments import GoldIdxChange, NumDocsChange, AbstractExperiment
 import experiments.runner as experiment_runner
 import common.consts as common_consts
+import tests.consts as test_consts
 
 from argparse import Namespace
 from typing import Optional
@@ -10,8 +11,17 @@ import logging
 import json
 
 
-def test_gold_idx_experiment() -> None:
+def test_gold_idx_experiment_with_instruct_model() -> None:
     args = _get_test_cli_args(
+        experiment=ExperimentType.GOLD_IDX_CHANGE.value,
+        num_docs=common_consts.SUPPORTED_NUM_DOCS[0]
+    )
+    _run_e2e_test(args=args, running_cls=GoldIdxChange)
+
+
+def test_gold_idx_experiment_with_base_model() -> None:
+    args = _get_test_cli_args(
+        model=test_consts.NON_CHAT_TEST_MODEL,
         experiment=ExperimentType.GOLD_IDX_CHANGE.value,
         num_docs=common_consts.SUPPORTED_NUM_DOCS[0]
     )
@@ -37,6 +47,7 @@ def _run_e2e_test(args: Namespace, running_cls: AbstractExperiment) -> None:
 
 def _get_test_cli_args(
     experiment: str,
+    model: Optional[str] = None,
     num_docs: Optional[int] = None,
     gold_idx: Optional[int] = None
 ) -> Namespace:
@@ -47,7 +58,7 @@ def _get_test_cli_args(
         prompting_mode=PromptingMode.OPENBOOK,
         num_docs=num_docs,
         gold_idx=gold_idx,
-        model=common_consts.DEFAULT_MODEL,
+        model=model or common_consts.DEFAULT_MODEL,
         dtype=common_consts.SUPPORTED_DTYPES[0],
         num_gpus=common_consts.DEFAULT_NUM_GPUS,
         temperature=common_consts.DEFAULT_TEMPERATURE,

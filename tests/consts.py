@@ -13,5 +13,7 @@ TEST_MODELS = [
     "meta-llama/Llama-3.1-8B-Instruct"
 ]
 
+NON_CHAT_TEST_MODEL = "tiiuae/Falcon3-Mamba-7B-Base"
+
 TEST_DOCUMENT_PATH = f"{DOCUMENTS_FOLDER_PATH}/{DOCUMETS_FOLDER_FILES[0]}"
 NUM_DOCS_TO_TEST = 2

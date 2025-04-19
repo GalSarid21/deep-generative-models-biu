@@ -38,7 +38,7 @@ Selective SSMs introduce sparsity and gating mechanisms to improve efficiency an
 
 **Mamba Architecture:**
 
-Mamba is a recent architecture that uses a Selective State Space Model in place of the attention mechanism in Transformer blocks. It retains the overall structure of modern language models (LayerNorm, MLPs, residuals), but the attention layer is replaced with an SSM block. This makes Mamba a standard language model with SSMs instead of attention — enabling fast inference and efficient long-sequence processing.
+Mamba is a recent architecture that uses a Selective State Space Model as an alternative to the attention mechanism found in Transformers. While it shares some components with modern language models like LayerNorm, MLPs, and residual connections, Mamba represents a distinct architectural approach which specifically designed around SSMs, resulting in a more streamlined, sequential structure without the encoder/decoder blocks found in traditional Transformers. This SSM-based design enables Mamba to achieve efficient linear scaling with sequence length (compared to the quadratic scaling of self-attention), allowing for faster inference and more efficient processing of long sequences. During training, Mamba maintains competitive efficiency compared to Transformers, with its parallel scan algorithm enabling effective batch processing, though the sequential nature of SSMs introduces some training considerations different from the highly parallelizable attention mechanism.
 
 <p align="center">
   <img src="assets/mamba_diagram.png" alt="mamba diagram" width="500"/>

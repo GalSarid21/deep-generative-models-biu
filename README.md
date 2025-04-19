@@ -38,6 +38,9 @@ The `lost-in-the-middle` team included the exact dataset used during experiments
   * Important fields: full chunk with answer, long answers, short answers, etc.
   * The `answers` field used in the original paper corresponds to the `short answers` from the `nq_annotated_gold` field.
 
+> **Prompt example from the original paper**:
+![prompt](assets/prompt.png)
+
 
 ## Experiment Description
 
@@ -45,9 +48,11 @@ Originally, the `lost-in-the-middle` paper examined two tasks: "multi-document q
 We focused on the "multi-document question answering" task and experimeneted two of its variants:
 
 * **Gold Index Change:**
+
   In this variant we take a list of 10/20/30 documents, and change the location of the *gold* (correct) answer. For example, with 10 documents we examine the indicies of 0, 4 and 9. This experiment aims measure how the position of the correct answer affects the final output of the LLM.
 
 * **Number of Documents Change:**
+
   In this variant, we fix the *gold* index (e.g., 0, 4, or 9) and vary the total number of documents: 10, 20, and 30. For example, if using gold index 0, we collect all document lists of sizes 10, 20, and 30 where the gold answer appears at index 0. Indices like 14 or 19 are excluded, as they don’t exist in the 10-document setting.
 
 We implemented each variant as a separate class (inheriting from a shared abstract base class for common functionality) and created a runner class that dynamically identifies the target experiment and executes it accordingly.

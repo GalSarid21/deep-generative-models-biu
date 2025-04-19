@@ -42,9 +42,11 @@ The `lost-in-the-middle` team included the exact dataset used during experiments
   * Important fields: full chunk with answer, long answers, short answers, etc.
   * The `answers` field used in the original paper corresponds to the `short answers` from the `nq_annotated_gold` field.
 
-> [!TIP]
+> [!IMPORTANT]
 > **🪧 Prompt example from the original paper**:
+>
 > ![prompt](assets/prompt.png)
+>
 
 ## Experiment Description
 
@@ -59,11 +61,13 @@ We focused on the "multi-document question answering" task and experimeneted two
 
   In this variant, we fix the *gold* index (e.g., 0, 4, or 9) and vary the total number of documents: 10, 20, and 30. For example, if using gold index 0, we collect all document lists of sizes 10, 20, and 30 where the gold answer appears at index 0. Indices like 14 or 19 are excluded, as they don’t exist in the 10-document setting.
 
-We implemented each variant as a separate class (inheriting from a shared abstract base class for common functionality) and created a runner class that dynamically identifies the target experiment and executes it accordingly.
-
-We used `vLLM` to manage LLM / SSM operations over GPU and HuggingFace `transformers` to dynamically add the model-specific instruction tokens to the prompt.
-
-We used `poetry` as a dependency manager and `pyest` to test our implementations. 
+> [!NOTE]
+> We implemented each variant as a separate class (inheriting from a shared abstract base class for common functionality) and created a runner class that dynamically identifies the target experiment and executes it accordingly.
+> 
+> We used `vLLM` to manage LLM / SSM operations over GPU and HuggingFace `transformers` to dynamically add the model-specific instruction tokens to the prompt.
+>
+> We used `poetry` as a dependency manager and `pyest` to test our implementations. 
+>
 
 ## Evaluation
 ```

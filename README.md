@@ -23,7 +23,7 @@ State Space Models (SSMs) are a class of sequence models that represent data usi
 <p align="center">
   <img src="assets/ssm_diagram_wikipedia.png" alt="ssm diagram" width="500"/>
   <br/>
-  <em>Block diagram representation of the linear state-space equations. Source: Wikipedia.</em>
+  <em>Block diagram representation of the linear state-space equations.<br>Source: Wikipedia.</em>
 </p>
 
 **Selective State Space:**
@@ -33,7 +33,7 @@ Selective SSMs introduce sparsity and gating mechanisms to improve efficiency an
 <p align="center">
   <img src="assets/selective_ssm_diagram.png" alt="ssm diagram" width="500"/>
   <br/>
-  <em>Selective State Space Model. Source: "Mamba: Linear-Time Sequence Modeling with Selective State Spaces" paper.</em>
+  <em>Selective State Space Model.<br>Source: "Mamba: Linear-Time Sequence Modeling with Selective State Spaces" paper.</em>
 </p>
 
 **Mamba Architecture**
@@ -42,7 +42,7 @@ Mamba is a recent architecture that uses a Selective State Space Model in place 
 <p align="center">
   <img src="assets/mamba_diagram.png" alt="mamba diagram" width="500"/>
   <br/>
-  <em>Mamba block diagram. Source: "Mamba: Linear-Time Sequence Modeling with Selective State Spaces" paper.</em>
+  <em>Mamba block diagram.<br>Source: "Mamba: Linear-Time Sequence Modeling with Selective State Spaces" paper.</em>
 </p>
 
 ## 📄 Experiment Data
@@ -130,7 +130,7 @@ Both the model answer and the ground truth answers are normalized using `SQuAD` 
 1. Graphs for Falcon3-Mamba-7B-Instruct vs Llama-3.1-8B-Instruct:
 
 <p align="center">
-  <img src="assets/ssm_vs_llm.png" alt="ssm vs llm" width="500"/>
+  <img src="assets/ssm_vs_llm.png" alt="ssm vs llm"/>
 </p>
 
   * From the graphs it is clear that the LLM outperform the SSM in all the experiments we ran.

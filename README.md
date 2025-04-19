@@ -70,7 +70,7 @@ The `lost-in-the-middle` team included the exact dataset used during experiments
 <p align="center">
   <img src="assets/prompt.png" alt="prompt"/>
   <br/>
-  <em>Openbook random prompt example.<br>Source: "Lost in the Middle: How Language Models Use Long Contexts" paper.</em>
+  <em>Openbook prompt example.<br>Source: "Lost in the Middle: How Language Models Use Long Contexts" paper.</em>
 </p>
 
 ## 🗣️ Experiment Description

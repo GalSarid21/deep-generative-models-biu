@@ -91,12 +91,16 @@ Each experiment includes data loading part, where we load the list of questions,
 When the data is ready, we process all the questions and documents into prompts using a `PromptBuilder` component (see `src/promptbuilder.py`).<br>Then, we're taking all the prompts and gets a model answer for each prompt-questions. We create a results object (see `common/data.md`) with the model answers and their evaluation results (see next section for evaluation overview).
 
 > [!NOTE]
+>
 > We implemented each variant as a separate class (inheriting from a shared abstract base class for common functionality) and created a runner class that dynamically identifies the target experiment and executes it accordingly.
 > 
 > We used `vLLM` to manage LLM / SSM operations over GPU and HuggingFace `transformers` to dynamically add the model-specific instruction tokens to the prompt (when needed).
 >
-> We used `poetry` as a dependency manager and `pyest` to test our implementations. 
+> We used `poetry` as a dependency manager and `pyest` to test our implementations.
 >
+> In all our experiments, we used a high `top_p` value (0.9) combined with a low `temperature` (0.1) to encourage the model to follow the prompt more deterministically and stay on-topic.
+> 
+
 
 ## 🧮 Evaluation
 

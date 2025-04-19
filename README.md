@@ -29,16 +29,22 @@ For each query, the dataset includes one document that contains the correct answ
 * The *k − 1* distractors are retrieved using a Contriever model fine-tuned on MS-MARCO. These are topically relevant Wikipedia chunks that do not include the answer.
 
 The `lost-in-the-middle` team included the exact dataset used during experiments in their Git repository. This includes three folders containing 10, 20, and 30 document JSON files, with the following fields:
-* question (str): the prompt's question (query).
-* answers (List[str]): a list of short answers.
-* ctxs (List[Dict[str, Any]]): a list of documents used for the prompt’s context.
+
+* *question (str):* the prompt's question (query).
+
+* *answers (List[str]):* a list of short answers.
+
+* *ctxs (List[Dict[str, Any]]):* a list of documents used for the prompt’s context.
   * Important fields: `title`, `text`, `hasanswer`, and `isgold`.
   * We used the `lost-in-the-middle` original `Document` object "as is" (see `common/entities.py `- `Document`).
-* nq_annotated_gold (Dict[str, Any]): contains the original annotated answers data.
+
+* *nq_annotated_gold (Dict[str, Any]):* contains the original annotated answers data.
   * Important fields: full chunk with answer, long answers, short answers, etc.
   * The `answers` field used in the original paper corresponds to the `short answers` from the `nq_annotated_gold` field.
 
-> **Prompt example from the original paper**:![prompt](assets/prompt.png)
+**🪧 Prompt example from the original paper**:
+
+![prompt](assets/prompt.png)
 
 ## Experiment Description
 

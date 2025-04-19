@@ -127,7 +127,7 @@ Both the model answer and the ground truth answers are normalized using `SQuAD` 
 
 ## 🧠 Results
 
-1. Graphs for Falcon3-Mamba-7B-Instruct vs Llama-3.1-8B-Instruct:
+1. **Graphs for Falcon3-Mamba-7B-Instruct vs Llama-3.1-8B-Instruct:**
 
 <p align="center">
   <img src="assets/ssm_vs_llm.png" alt="ssm vs llm"/>
@@ -146,13 +146,13 @@ Both the model answer and the ground truth answers are normalized using `SQuAD` 
 > [!TIP]
 > One practical takeaway from the above results: when using Mamba in context-intensive prompt scenarios—such as Retrieval-Augmented Generation (RAG)—**consider reversing the traditional chunk order**. That is, order your retrieved chunks so that the most relevant or similar result appears at the end of the prompt, where Mamba is more attentive.
 >
-> **⚠️ Pay Attention!**<br>The described behavior was observed with the *Instruct* model, but not with the *Base* model (as we'll show in the next section). That said, the *Base* model’s overall performance was generally poor. This suggests that instruction tuning plays a significant role in how well SSMs leverage long-context information **and making the above tip applicable specifically to the Instruct variant**.
+> **⚠️ Pay Attention!**<br>The described behavior was observed with the *Instruct* model, but not with the *Base* model (as we'll show in the next section). That said, the *Base* model’s overall performance was generally poor. This suggests that instruction tuning plays a significant role in how well SSMs leverage long-context information **and making the above tip applicable specifically to the *Instruct* variant**.
 >
 
-2. Graphs for Falcon3-Mamba-7B-Instruct vs Falcon3-Mamba-7B-Base:
+2. **Graphs for Falcon3-Mamba-7B-Instruct vs Falcon3-Mamba-7B-Base:**
 
 <p align="center">
-  <img src="ssm_instruct_vs_base.png" alt="ssm instruct vs base"/>
+  <img src="assets/ssm_instruct_vs_base.png" alt="ssm instruct vs base"/>
 </p>
 
 * From the graphs, it's clear that the *Instruct* model consistently outperforms the *Base* model across all experiments we ran.

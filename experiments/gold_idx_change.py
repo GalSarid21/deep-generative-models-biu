@@ -1,5 +1,5 @@
 from experiments.abstract import AbstractExperiment
-from common.entities import ExperimentType
+from common.entities import ExperimentType, PromptingMode
 from argparse import Namespace
 import common.nq_data as nq_data
 import common.consts as consts
@@ -48,8 +48,10 @@ class GoldIdxChange(AbstractExperiment):
 
         result_file_dir = f"{consts.RESULTS_DIR}/{model_short}/" \
             + f"{experiment_type}_experiment/" \
-            + f"{prompting_mode}_prompting_mode/" \
-            + f"{num_docs}_docs"
+            + f"{prompting_mode}_prompting_mode/"
+
+        if prompting_mode is not PromptingMode.CLOSEDBOOK:
+            result_file_dir += f"/{num_docs}_docs"
 
         os.makedirs(result_file_dir, exist_ok=True)
         result_file_path = f"{result_file_dir}/{timestamp}.json"

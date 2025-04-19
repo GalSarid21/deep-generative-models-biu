@@ -68,9 +68,9 @@ The `lost-in-the-middle` team included the exact dataset used during experiments
   * The `answers` field used in the original paper corresponds to the `short answers` from the `nq_annotated_gold` field.
 
 <p align="center">
-  <img src="assets/prompt.png" alt="prompt" width="500"/>
+  <img src="assets/prompt.png" alt="prompt"/>
   <br/>
-  <em>Prompt example from the original paper.</em>
+  <em>Openbook random prompt example.<br>Source: "Lost in the Middle: How Language Models Use Long Contexts" paper.</em>
 </p>
 
 ## 🗣️ Experiment Description
@@ -142,6 +142,24 @@ Both the model answer and the ground truth answers are normalized using `SQuAD` 
   * This behavior makes sense when considering the Mamba architecture. SSMs process input from left to right, so the most recent tokens (those closer to the end of the sequence) have more influence on the internal state of the model — with respect to the “present” time 𝑡. That means:
     * If the answer comes late, it’s closer to the prediction point, and the model can retain more signal from it.
     * Earlier gold documents may be “forgotten” or diminished due to the sequential nature of processing and the implicit decay of memory in SSMs.
+
+> [!TIP]
+> One practical takeaway from the above results: when using Mamba in context-intensive prompt scenarios—such as Retrieval-Augmented Generation (RAG)—**consider reversing the traditional chunk order**. That is, order your retrieved chunks so that the most relevant or similar result appears at the end of the prompt, where Mamba is more attentive.
+>
+> **⚠️ Pay Attention!**<br>The described behavior was observed with the *Instruct* model, but not with the *Base* model (as we'll show in the next section). That said, the *Base* model’s overall performance was generally poor. This suggests that instruction tuning plays a significant role in how well SSMs leverage long-context information **and making the above tip applicable specifically to the Instruct variant**.
+>
+
+2. Graphs for Falcon3-Mamba-7B-Instruct vs Falcon3-Mamba-7B-Base:
+
+<p align="center">
+  <img src="ssm_instruct_vs_base.png" alt="ssm instruct vs base"/>
+</p>
+
+* From the graphs, it's clear that the *Instruct* model consistently outperforms the *Base* model across all experiments we ran.
+
+* Moreover, we included the *Instruct* model’s **closedbook** performance, and in most cases, **it outperforms the *Base* model's openbook** results — especially when the number of documents exceeds 10. In fact, in those larger-context settings, the Base model never surpassed the Instruct model’s closed-book performance.
+
+* This directly supports our earlier point: **instruction fine-tuning significantly enhances the ability of SSMs to handle long-context prompts**.
 
 ## 🔮 Future Work
 

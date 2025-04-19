@@ -13,7 +13,7 @@ class vLLMWrapper:
         dtype: str,
         num_gpus: int,
         max_model_len: int,
-        gpu_memory_utilization: Optional[float] = 0.9
+        gpu_memory_utilization: float
     ) -> None:
 
         self._llm = LLM(

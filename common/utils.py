@@ -1,4 +1,7 @@
+from common.entities import Document
+
 from typing import List, Dict, Optional
+import random
 
 
 def get_messages_list(
@@ -11,3 +14,14 @@ def get_messages_list(
         messages.append({"role": "system", "content": system})
     messages.append({"role": "user", "content": user})
     return messages
+
+
+def reposition_with_shuffle(
+    lst: List[Document],
+    source_index: int,
+    target_index: int
+) -> None:
+
+    element = lst.pop(source_index)
+    random.shuffle(lst)
+    lst.insert(target_index, element)

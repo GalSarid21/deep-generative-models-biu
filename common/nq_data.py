@@ -267,7 +267,7 @@ def read_all_files_src(
     files_path: Optional[str] = "nq-open-contriever-msmarco-retrieved-documents.jsonl.gz",
     min_tokens: Optional[int] = 120_000,
     max_tokens: Optional[int] = 127_000
-) -> List[Dict[str, Union[str, int, float]]]:
+) -> List[Dict[str, Union[str, float]]]:
 
     tokenizer = HfTokenizer(model_name)
     all_files = []
@@ -284,11 +284,9 @@ def read_all_files_src(
                         continue
                     else:
                         answer_added = True
+                new_entry["documents"].append(Document.from_dict(elm))
                 prompt = f"Document [{i}](Title: {elm["title"]}) {elm["text"]}"
-                new_entry["documents"].append({"document": prompt, "hasanswer": elm["hasanswer"]})
-                total_tokens += tokenizer.count_tokens(
-                    prompt=prompt, prompt_with_inst_tokens=tokenizer.is_chat_model
-                )
+                total_tokens += len(tokenizer.tokenize(prompt))
                 if total_tokens > max_tokens:
                     break
             if total_tokens < min_tokens:

@@ -1,4 +1,4 @@
-from common.entities import PromptingMode
+from common.entities import PromptingMode, Document
 from tests.conftest import download_nq_files_if_needed
 import common.nq_data as nq_data
 import common.consts as common_consts
@@ -297,9 +297,10 @@ def test_loading_all_files(
         assert file_ref["total_tokens"] == file_res["total_tokens"]
         for j in range(len(file_res["answers"])):
             assert file_ref["answers"][j] == file_res["answers"][j]
+        assert len(file_ref["documents"]) == len(file_res["documents"])
         for j in range(len(file_res["documents"])):
-            assert file_ref["documents"][j]["hasanswer"] == file_res["documents"][j]["hasanswer"]
-            assert file_ref["documents"][j]["document"] == file_res["documents"][j]["document"]
+            ref_doc = Document.from_dict(file_ref["documents"][j])
+            assert ref_doc == file_res["documents"][j]
 
 
 def download_nq_files_if_needed() -> None:

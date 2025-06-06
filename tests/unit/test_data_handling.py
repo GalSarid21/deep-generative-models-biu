@@ -275,6 +275,33 @@ def test_num_docs_change_data_dict_creation(
     assert data_test_subset_json_dict == test_results["num_docs_data_dict_subset"]
 
 
+@pytest.mark.parametrize(
+    "test_results",
+    ["./tests/results/data_handling.yaml"],
+    indirect=True
+)
+def test_loading_all_files(
+    test_results: Dict[str, Any]
+) -> None:
+    
+    all_files_ref = test_results["all_files"]
+    all_files_res = nq_data.read_all_files_src(
+        model_name=test_consts.TEST_MODELS[-1], # llama 3.1 8b instruct
+        num_files=test_consts.NUM_FILES_SRC_TO_TEST # 3
+    )
+
+    for i in range(test_consts.NUM_FILES_SRC_TO_TEST):
+        file_ref = all_files_ref[i]
+        file_res = all_files_res[i]
+        assert file_ref["question"] == file_res["question"]
+        assert file_ref["total_tokens"] == file_res["total_tokens"]
+        for j in range(len(file_res["answers"])):
+            assert file_ref["answers"][j] == file_res["answers"][j]
+        for j in range(len(file_res["documents"])):
+            assert file_ref["documents"][j]["hasanswer"] == file_res["documents"][j]["hasanswer"]
+            assert file_ref["documents"][j]["document"] == file_res["documents"][j]["document"]
+
+
 def download_nq_files_if_needed() -> None:
     if not os.path.exists(test_consts.DOCUMENTS_FOLDER_PATH):
         nq_data.download_files_by_num_docs(

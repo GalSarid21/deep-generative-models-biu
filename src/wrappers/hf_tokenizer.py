@@ -11,6 +11,7 @@ class HfTokenizer:
         self._tokenizer = AutoTokenizer.from_pretrained(model)
         self._is_chat_model = self._tokenizer.chat_template is not None
 
+
     @property
     def model(self) -> str:
         return self._model
@@ -93,8 +94,8 @@ class HfTokenizer:
 
         Raises an exception if none of those two variables are being passed.
         """
-        if kwargs.get("prompt"):
-            prompt = kwargs.get("prompt")
+        prompt = kwargs.get("prompt")
+        if prompt is not None:
             if prompt_with_inst_tokens is True:
                 tokenized_prompt = self.tokenize(prompt)
                 return len(tokenized_prompt)

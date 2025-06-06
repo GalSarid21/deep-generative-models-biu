@@ -1,8 +1,10 @@
 from common.entities import Document, PromptingMode
+from src.wrappers import HfTokenizer
 
 from pathlib import Path
 from typing import List, Tuple, Dict, Union, Optional, Any
 from random import shuffle
+from xopen import xopen
 from copy import deepcopy
 from tqdm import tqdm
 
@@ -257,3 +259,43 @@ def download_folder_files(
 
             else:
                 logging.info(f"Skipping existing file [file exists]: {src_file}")
+
+
+def read_all_files_src(
+    model_name: str,
+    num_files: Optional[int] = None,
+    files_path: Optional[str] = "nq-open-contriever-msmarco-retrieved-documents.jsonl.gz",
+    min_tokens: Optional[int] = 120_000,
+    max_tokens: Optional[int] = 127_000
+) -> List[Dict[str, Union[str, int, float]]]:
+
+    tokenizer = HfTokenizer(model_name)
+    all_files = []
+
+    with xopen(files_path, "r") as f:
+        for line in tqdm(f):
+            res = json.loads(line)
+            new_entry = {"question": res["question"], "answers": res["answers"], "documents": []}
+            answer_added = False
+            total_tokens = 0
+            for i, elm in enumerate(res["ctxs"], 1):
+                if elm["hasanswer"]:
+                    if answer_added and elm["score"]:
+                        continue
+                    else:
+                        answer_added = True
+                prompt = f"Document [{i}](Title: {elm["title"]}) {elm["text"]}"
+                new_entry["documents"].append({"document": prompt, "hasanswer": elm["hasanswer"]})
+                total_tokens += tokenizer.count_tokens(
+                    prompt=prompt, prompt_with_inst_tokens=tokenizer.is_chat_model
+                )
+                if total_tokens > max_tokens:
+                    break
+            if total_tokens < min_tokens:
+                continue
+            new_entry["total_tokens"] = total_tokens
+            all_files.append(new_entry)
+            if num_files and len(all_files) == num_files:
+                break
+
+    return all_files

@@ -180,3 +180,9 @@ cython_debug/
 # ignore result files
 /results
 /assets/plots
+
+# ignoring base documents folder
+nq-open-contriever-msmarco-retrieved-documents.jsonl.gz
+
+# ingoring playground tests notebook
+notebooks/playground.ipynb

@@ -29,7 +29,7 @@ class NumDocsChange(AbstractExperiment):
         )
 
         if args.test_mode is True:
-            n = consts.TEST_NUM_EXAMPLES
+            n = args.test_num_examples
             logging.info(f"Argument test_mode=True. Truncating data to {n}.")
             self._truncate_data(n)
 

@@ -276,22 +276,25 @@ def read_all_files_src(
         for line in tqdm(f):
             res = json.loads(line)
             new_entry = {"question": res["question"], "answers": res["answers"], "documents": []}
-            answer_added = False
             total_tokens = 0
             for i, elm in enumerate(res["ctxs"], 1):
+                prompt = f"Document [{i}](Title: {elm["title"]}) {elm["text"]}"
                 if elm["hasanswer"]:
-                    if answer_added and elm["score"]:
+                    if new_entry.get("doc_with_answer"):
                         continue
                     else:
-                        answer_added = True
-                new_entry["documents"].append(Document.from_dict(elm))
-                prompt = f"Document [{i}](Title: {elm["title"]}) {elm["text"]}"
-                total_tokens += len(tokenizer.tokenize(prompt))
-                if total_tokens > max_tokens:
+                        new_entry["doc_with_answer"] = elm
+                else:
+                    new_entry["documents"].append(elm)
+                tokens = tokenizer.tokenize(prompt)
+                total_tokens += len(tokens)
+                if total_tokens >= max_tokens:
                     break
             if total_tokens < min_tokens:
                 continue
             new_entry["total_tokens"] = total_tokens
+            if not new_entry.get("doc_with_answer"):
+                continue
             all_files.append(new_entry)
             if num_files and len(all_files) == num_files:
                 break

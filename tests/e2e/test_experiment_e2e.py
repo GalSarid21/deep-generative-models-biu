@@ -67,5 +67,7 @@ def _get_test_cli_args(
         max_model_len=common_consts.DEFAULT_MAX_MODEL_LEN,
         gpu_memory_utilization=common_consts.DEFAULT_MAX_GPU_UTIL,
         results_dir=None,
-        test_mode=True
+        test_mode=True,
+        nq_data_dir=None,
+        test_num_examples=3
     )

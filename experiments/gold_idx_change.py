@@ -15,20 +15,24 @@ class GoldIdxChange(AbstractExperiment):
 
     def __init__(self, args: Namespace) -> None:
         super().__init__(args)
-        
-        created_folder = nq_data.download_files_by_num_docs(
-            src_dir=consts.DATA_SRC_DIR,
-            dst_dir=consts.DATA_DST_DIR,
-            num_docs=args.num_docs
-        )
+
+        if args.nq_data_dir:
+            folder_path = args.nq_data_dir
+        else:
+            created_folder = nq_data.download_files_by_num_docs(
+                src_dir=consts.DATA_SRC_DIR,
+                dst_dir=consts.DATA_DST_DIR,
+                num_docs=args.num_docs
+            )
+            folder_path = created_folder
 
         self._data = nq_data.read_files_by_num_docs(
-            folder_path=created_folder,
+            folder_path=folder_path,
             prompting_mode=self._prompting_mode
         )
 
         if args.test_mode is True:
-            n = consts.TEST_NUM_EXAMPLES
+            n = args.test_num_examples
             logging.info(f"Argument test_mode=True. Truncating data to {n}.")
             self._truncate_data(n)
 

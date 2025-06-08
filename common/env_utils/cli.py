@@ -100,6 +100,13 @@ def read_cli_env_args() -> Namespace:
     )
 
     parser.add_argument(
+        "--test_num_examples",
+        help="applicable only when the 'test_mode' option was choosen, sets the number of test examples to use.",
+        type=int,
+        default=3
+    )
+
+    parser.add_argument(
         "--results_dir",
         help="external directory to store the experiment results.",
         type=str
@@ -117,6 +124,12 @@ def read_cli_env_args() -> Namespace:
         help="maximum GPU percentage can be used by the model.",
         type=float,
         default=consts.DEFAULT_MAX_GPU_UTIL
+    )
+
+    parser.add_argument(
+        "--nq_data_dir",
+        help="optional field for nq data folder path. if not given - download will happen in the beggining of the test.",
+        type=str
     )
 
     args = parser.parse_args()

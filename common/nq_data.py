@@ -17,7 +17,8 @@ import os
 
 def read_files_by_num_docs(
     folder_path: str,
-    prompting_mode: PromptingMode
+    prompting_mode: PromptingMode,
+    num_examples: Optional[int] = None
 ) -> Dict[str, Dict[str, Union[List[str], List[List[Document]]]]]:
     """
     Reads all jsonl files from input folder and creats a file postfix based
@@ -33,7 +34,9 @@ def read_files_by_num_docs(
         questions, answers, _ = read_file(
             # we need only one file since we don't use documents and this
             # is what changes between files
-            file_path=jsonl_files[0], prompting_mode=prompting_mode
+            file_path=jsonl_files[0],
+            prompting_mode=prompting_mode,
+            num_examples=num_examples
         )
         files_data.update({
             prompting_mode.value: {
@@ -45,7 +48,7 @@ def read_files_by_num_docs(
     else:
         for jsonl in jsonl_files:
             questions, answers, documents = read_file(
-                file_path=jsonl, prompting_mode=prompting_mode
+                file_path=jsonl, prompting_mode=prompting_mode, num_examples=num_examples
             )
             # stem should look like the following:
             # nq-open-10_total_documents_gold_at_0
@@ -66,7 +69,8 @@ def read_files_by_num_docs(
 def read_files_by_gold_idx(
     folder_paths: List[str],
     prompting_mode: PromptingMode,
-    gold_idx: int
+    gold_idx: int,
+    num_examples: Optional[int] = None
 ) -> Dict[str, Dict[str, Union[List[str], List[List[Document]]]]]:
     """
     Reads a jsonl file that ends with `gold_idx` postfix from input folder
@@ -82,7 +86,7 @@ def read_files_by_gold_idx(
 
     files_data = {}
     for file_path in file_paths:
-        questions, answers, documents = read_file(file_path, prompting_mode)
+        questions, answers, documents = read_file(file_path, prompting_mode, num_examples)
         # stem should look like the following:
         # nq-open-10_total_documents_gold_at_0
         # hence - replace("nq-open-", "") will remove the "nq-open-" and
@@ -103,7 +107,8 @@ def read_files_by_gold_idx(
 
 def read_file(
     file_path: str,
-    prompting_mode: PromptingMode
+    prompting_mode: PromptingMode,
+    num_examples: Optional[int] = None
 ) -> Tuple[List[str], List[List[str]], List[List[Document]]]:
     """
     Reads NQ dataset file using `file_path` and creates a list of lists
@@ -144,6 +149,10 @@ def read_file(
                 documents = distractors
 
             all_documents.append(documents)
+            if num_examples and len(all_documents) == num_examples:
+                all_questions = all_questions[:num_examples]
+                answers = answers[:num_examples]
+                break
 
     return all_questions, all_answers, all_documents
 
@@ -278,7 +287,7 @@ def read_all_files_src(
             new_entry = {"question": res["question"], "answers": res["answers"], "documents": []}
             total_tokens = 0
             for i, elm in enumerate(res["ctxs"], 1):
-                prompt = f"Document [{i}](Title: {elm["title"]}) {elm["text"]}"
+                prompt = f"Document [{i}](Title: {elm['title']}) {elm['text']}"
                 if elm["hasanswer"]:
                     if new_entry.get("doc_with_answer"):
                         continue

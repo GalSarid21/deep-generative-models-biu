@@ -71,7 +71,7 @@ class AbstractExperiment(ABC):
                 key=key
             )
 
-        self._log_experiment_results()
+            self._log_experiment_results()
 
     def _load_llm(
         self,

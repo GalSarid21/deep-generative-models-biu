@@ -100,10 +100,9 @@ def read_cli_env_args() -> Namespace:
     )
 
     parser.add_argument(
-        "--test_num_examples",
-        help="applicable only when the 'test_mode' option was choosen, sets the number of test examples to use.",
-        type=int,
-        default=3
+        "--num_examples",
+        help="sets the number of test examples to use.",
+        type=int
     )
 
     parser.add_argument(

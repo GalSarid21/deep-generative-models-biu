@@ -69,5 +69,5 @@ def _get_test_cli_args(
         results_dir=None,
         test_mode=True,
         nq_data_dir=None,
-        test_num_examples=3
+        num_examples=3
     )

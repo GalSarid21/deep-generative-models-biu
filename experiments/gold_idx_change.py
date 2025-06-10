@@ -28,13 +28,14 @@ class GoldIdxChange(AbstractExperiment):
 
         self._data = nq_data.read_files_by_num_docs(
             folder_path=folder_path,
-            prompting_mode=self._prompting_mode
+            prompting_mode=self._prompting_mode,
+            num_examples=args.num_examples
         )
 
-        if args.test_mode is True:
-            n = args.test_num_examples
-            logging.info(f"Argument test_mode=True. Truncating data to {n}.")
-            self._truncate_data(n)
+        if args.num_examples:
+            n = args.num_examples
+            logging.info(f"Argument num_examples != None. Truncating data to {n}.")
+            # self._truncate_data(n)
 
         self._results = self._get_empty_results_dict(args)
 

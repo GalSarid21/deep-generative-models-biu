@@ -25,13 +25,14 @@ class NumDocsChange(AbstractExperiment):
         self._data = nq_data.read_files_by_gold_idx(
             folder_paths=created_folders,
             prompting_mode=self._prompting_mode,
-            gold_idx=args.gold_idx
+            gold_idx=args.gold_idx,
+            num_examples=args.num_examples
         )
 
-        if args.test_mode is True:
-            n = args.test_num_examples
-            logging.info(f"Argument test_mode=True. Truncating data to {n}.")
-            self._truncate_data(n)
+        if args.num_examples:
+            n = args.num_examples
+            logging.info(f"Argument num_examples != None. Truncating data to {n}.")
+            # self._truncate_data(n)
 
         self._results = self._get_empty_results_dict(args)
 

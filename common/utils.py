@@ -6,13 +6,16 @@ import random
 
 def get_messages_list(
     user: str,
-    system: Optional[str] = None
+    system: Optional[str] = None,
+    apply_ici: Optional[bool] = True
 ) -> List[Dict[str, str]]:
 
     messages = []
     if system is not None:
         messages.append({"role": "system", "content": system})
     messages.append({"role": "user", "content": user})
+    if apply_ici is True and system is not None:
+        messages.append({"role": "system", "content": system})
     return messages
 
 
